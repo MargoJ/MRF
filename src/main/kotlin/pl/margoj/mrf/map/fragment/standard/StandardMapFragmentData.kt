@@ -6,15 +6,15 @@ import pl.margoj.mrf.map.serialization.MapSerializationContext
 
 class StandardMapFragmentData: MapFragmentData<StandardMapFragment>
 {
-    override val fragmentId: Int = 1
+    override val objectId: Int = 1
 
-    override fun encode(fragment: StandardMapFragment, context: MapSerializationContext)
+    override fun encode(obj: StandardMapFragment, context: MapSerializationContext)
     {
         val out = context.output!!
 
-        out.writeShort(context.stringConstantPool!!.store(fragment.tileset.name).toInt())
-        out.writeByte(fragment.tilesetPoint.x)
-        out.writeByte(fragment.tilesetPoint.y)
+        out.writeShort(context.stringConstantPool!!.store(obj.tileset.name).toInt())
+        out.writeByte(obj.tilesetPoint.x)
+        out.writeByte(obj.tilesetPoint.y)
     }
 
     override fun decode(context: MapSerializationContext): StandardMapFragment

@@ -1,10 +1,14 @@
-package pl.margoj.mrf.serialization
+package pl.margoj.mrf.map.serialization
 
 import pl.margoj.mrf.map.MargoMap
 import pl.margoj.mrf.map.Point
 import pl.margoj.mrf.map.serialization.MapData
 import pl.margoj.mrf.map.serialization.MapSerializationContext
 import pl.margoj.mrf.map.tileset.Tileset
+import pl.margoj.mrf.serialization.MRFDeserializer
+import pl.margoj.mrf.serialization.SerializationContext
+import pl.margoj.mrf.serialization.SerializationException
+import pl.margoj.mrf.serialization.StringConstantPool
 import java.io.DataInputStream
 import java.util.zip.GZIPInputStream
 
@@ -51,7 +55,7 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
                     context.currentLayer = layer
 
                     val dataId = currentInput.readByte()
-                    val data = MapData.getById(dataId.toInt()) ?: throw SerializationException("Unknown data id $dataId")
+                    val data = MapData.mapFragments.getById(dataId.toInt()) ?: throw SerializationException("Unknown data id $dataId")
                     val fragment = data.decode(context)
                     fragments[x][y][layer] = fragment
                 }
@@ -68,7 +72,17 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
             }
         }
 
-        currentInput.readShort() // reserved ; objects count
+
+        for(i in 1..currentInput.readShort()) // objects count
+        {
+            val id = currentInput.readByte().toInt()
+
+            // read positions
+            context.objectPoint = Point(currentInput.readByte().toInt(), currentInput.readByte().toInt())
+
+            val data = MapData.mapObjects.getById(id) ?: throw SerializationException("Unknown object type: $id")
+            map.addObject(data.decode(context))
+        }
 
         gzip?.close()
 

@@ -6,11 +6,11 @@ import pl.margoj.mrf.map.tileset.AutoTileset
 
 class AutoMapFragmentData: MapFragmentData<AutoMapFragment>
 {
-    override val fragmentId: Int = 2
+    override val objectId: Int = 2
 
-    override fun encode(fragment: AutoMapFragment, context: MapSerializationContext)
+    override fun encode(obj: AutoMapFragment, context: MapSerializationContext)
     {
-        context.output!!.writeShort(context.stringConstantPool!!.store(fragment.tilesetFile.name).toInt())
+        context.output!!.writeShort(context.stringConstantPool!!.store(obj.tilesetFile.name).toInt())
     }
 
     override fun decode(context: MapSerializationContext): AutoMapFragment

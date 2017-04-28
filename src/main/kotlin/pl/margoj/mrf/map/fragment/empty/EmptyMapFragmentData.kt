@@ -6,9 +6,9 @@ import pl.margoj.mrf.map.serialization.MapSerializationContext
 
 class EmptyMapFragmentData: MapFragmentData<EmptyMapFragment>
 {
-    override var fragmentId: Int = 0
+    override var objectId: Int = 0
 
-    override fun encode(fragment: EmptyMapFragment, context: MapSerializationContext)
+    override fun encode(obj: EmptyMapFragment, context: MapSerializationContext)
     {
     }
 

@@ -16,6 +16,7 @@ class MapSerializationContext : SerializationContext
     var stringConstantPool: StringConstantPool? = null
     var currentTile: Point = Point(0, 0)
     var currentLayer: Int = 0
+    var objectPoint: Point = Point(0, 0)
 
     /**
      * write-only mode
@@ -45,7 +46,7 @@ class MapSerializationContext : SerializationContext
 
     fun getTileset(name: String?): Tileset?
     {
-        return if(name == null) null else this.tilesets?.get(name)
+        return if (name == null) null else this.tilesets?.get(name)
     }
 
     private fun makeTilesetMap(tilesets: Collection<Tileset>): Map<String, Tileset>

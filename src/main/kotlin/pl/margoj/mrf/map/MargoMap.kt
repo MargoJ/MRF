@@ -5,13 +5,15 @@ import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
 import pl.margoj.mrf.map.fragment.MapFragment
 import pl.margoj.mrf.map.fragment.empty.EmptyMapFragment
+import pl.margoj.mrf.map.objects.MapObject
 
 class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResource(id, name), Iterable<Array<MapFragment>>
 {
     lateinit var fragments: Array<Array<Array<MapFragment>>>
-        private set
     lateinit var collisions: Array<BooleanArray>
-        private set
+
+    private val objects_: MutableMap<Point, MapObject<*>> = hashMapOf()
+    val objects: Collection<MapObject<*>> get() = this.objects_.values
 
     override val category: Category get() = Category.MAPS
 
@@ -125,7 +127,7 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
 
     fun setFragment(fragment: MapFragment): Boolean
     {
-        if(!this.inBounds(fragment.point))
+        if (!this.inBounds(fragment.point))
         {
             return false
         }
@@ -135,11 +137,26 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
 
     fun getFragment(point: Point, layer: Int): MapFragment?
     {
-        if(!this.inBounds(point) || layer < 0 || layer >= LAYERS)
+        if (!this.inBounds(point) || layer < 0 || layer >= LAYERS)
         {
             return null
         }
         return this.fragments[point.x][point.y][layer]
+    }
+
+    fun addObject(mapObject: MapObject<*>)
+    {
+        this.objects_[mapObject.position] = mapObject
+    }
+
+    fun getObject(position: Point): MapObject<*>?
+    {
+        return this.objects_[position]
+    }
+
+    fun deleteObject(position: Point)
+    {
+        this.objects_.remove(position)
     }
 
     override fun iterator(): Iterator<Array<MapFragment>>

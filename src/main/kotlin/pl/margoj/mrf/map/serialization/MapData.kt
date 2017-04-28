@@ -4,33 +4,42 @@ import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.fragment.auto.AutoMapFragmentData
 import pl.margoj.mrf.map.fragment.empty.EmptyMapFragmentData
 import pl.margoj.mrf.map.fragment.standard.StandardMapFragmentData
+import pl.margoj.mrf.map.objects.MapObjectData
+import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
 
-object MapData
+class MapData<T : SerializationData<*>>
 {
-    private val mapFragmentData: MutableMap<Class<out MapFragmentData<*>>, MapFragmentData<*>> = hashMapOf()
-    private val idToData: MutableMap<Int, MapFragmentData<*>> = hashMapOf()
+    private val mapFragmentData: MutableMap<Class<out T>, T> = hashMapOf()
+    private val idToData: MutableMap<Int, T> = hashMapOf()
 
-    fun registerMapFragmentData(data: MapFragmentData<*>)
+    fun registerData(data: T)
     {
         mapFragmentData.put(data::class.java, data)
-        idToData.put(data.fragmentId, data)
+        idToData.put(data.objectId, data)
     }
 
-    fun getByClass(clazz: Class<out MapFragmentData<*>>): MapFragmentData<*>?
+    fun getByClass(clazz: Class<out T>): T?
     {
         return mapFragmentData[clazz]
     }
 
-
-    fun getById(id: Int): MapFragmentData<*>?
+    fun getById(id: Int): T?
     {
         return idToData[id]
     }
 
-    init
+    companion object
     {
-        registerMapFragmentData(EmptyMapFragmentData())
-        registerMapFragmentData(StandardMapFragmentData())
-        registerMapFragmentData(AutoMapFragmentData())
+        val mapFragments = MapData<MapFragmentData<*>>()
+        val mapObjects = MapData<MapObjectData<*>>()
+
+        init
+        {
+            mapFragments.registerData(EmptyMapFragmentData())
+            mapFragments.registerData(StandardMapFragmentData())
+            mapFragments.registerData(AutoMapFragmentData())
+
+            mapObjects.registerData(GatewayObjectData())
+        }
     }
 }
