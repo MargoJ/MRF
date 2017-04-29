@@ -122,6 +122,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
             tempMrf.delete()
 
             this.zip = ZipFile(this.mrfFile)
+            this.touched = false
         }
         catch (e: IOException)
         {

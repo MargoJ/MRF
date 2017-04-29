@@ -141,6 +141,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
             this.resources_!!.add(resource.view)
             this.updateIndex(this.resources)
         }
+        this.touched = true
     }
 
     override fun deleteResource(view: ResourceView)
