@@ -19,6 +19,7 @@ class GatewayObjectData : MapObjectData<GatewayObject>
     override fun decode(context: MapSerializationContext): GatewayObject
     {
         val input = context.input!!
-        return GatewayObject(context.objectPoint, Point(input.readByte().toInt(), input.readByte().toInt()), input.readUTF())
+        val point = Point(input.readByte().toInt(), input.readByte().toInt())
+        return GatewayObject(context.objectPoint, point, input.readUTF())
     }
 }

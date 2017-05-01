@@ -4,6 +4,10 @@ import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.fragment.auto.AutoMapFragmentData
 import pl.margoj.mrf.map.fragment.empty.EmptyMapFragmentData
 import pl.margoj.mrf.map.fragment.standard.StandardMapFragmentData
+import pl.margoj.mrf.map.metadata.MapMetadataElementData
+import pl.margoj.mrf.map.metadata.pvp.MapPvPData
+import pl.margoj.mrf.map.metadata.welcome.WelcomeMessage
+import pl.margoj.mrf.map.metadata.welcome.WelcomeMessageData
 import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
 
@@ -11,6 +15,8 @@ class MapData<T : SerializationData<*>>
 {
     private val mapFragmentData: MutableMap<Class<out T>, T> = hashMapOf()
     private val idToData: MutableMap<Int, T> = hashMapOf()
+
+    val values: Collection<T> get() = this.idToData.values
 
     fun registerData(data: T)
     {
@@ -28,10 +34,16 @@ class MapData<T : SerializationData<*>>
         return idToData[id]
     }
 
+    fun getByObject(dataContainer: DataTypeProperty<T>): T?
+    {
+        return values.firstOrNull { dataContainer.dataType == it }
+    }
+
     companion object
     {
         val mapFragments = MapData<MapFragmentData<*>>()
         val mapObjects = MapData<MapObjectData<*>>()
+        val mapMetadata = MapData<MapMetadataElementData<*>>()
 
         init
         {
@@ -40,6 +52,9 @@ class MapData<T : SerializationData<*>>
             mapFragments.registerData(AutoMapFragmentData())
 
             mapObjects.registerData(GatewayObjectData())
+
+            mapMetadata.registerData(MapPvPData())
+            mapMetadata.registerData(WelcomeMessageData())
         }
     }
 }

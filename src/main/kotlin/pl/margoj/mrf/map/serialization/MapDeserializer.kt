@@ -2,8 +2,6 @@ package pl.margoj.mrf.map.serialization
 
 import pl.margoj.mrf.map.MargoMap
 import pl.margoj.mrf.map.Point
-import pl.margoj.mrf.map.serialization.MapData
-import pl.margoj.mrf.map.serialization.MapSerializationContext
 import pl.margoj.mrf.map.tileset.Tileset
 import pl.margoj.mrf.serialization.MRFDeserializer
 import pl.margoj.mrf.serialization.SerializationContext
@@ -37,12 +35,18 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
 
         stringConstantPool.deserialize(SerializationContext(currentInput))
 
-        currentInput.readByte() // reserved ; metadata elements count
-
-        // actual map
         val context = MapSerializationContext(currentInput, this.tilesets, map)
         context.stringConstantPool = stringConstantPool
 
+        for(i in 1..currentInput.readByte()) // metadata elements count
+        {
+            val id = currentInput.readByte().toInt()
+
+            val data = MapData.mapMetadata.getById(id) ?: throw SerializationException("Unknown object type: $id")
+            map.setMetadata(data.decode(context))
+        }
+
+        // actual map
         val fragments = map.fragments
 
         for (x in 0..(map.width - 1))
@@ -73,7 +77,9 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
         }
 
 
-        for(i in 1..currentInput.readShort()) // objects count
+
+        val objects = currentInput.readShort() // objects count
+        for(i in 1..objects)
         {
             val id = currentInput.readByte().toInt()
 
@@ -84,6 +90,7 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
             map.addObject(data.decode(context))
         }
 
+        context.close()
         gzip?.close()
 
         return map

@@ -8,7 +8,7 @@ import java.awt.Graphics
 
 class StandardMapFragment(override val tileset: Tileset, val tilesetPoint: Point, mapPoint: Point, layer: Int) : MapFragment(tileset, mapPoint, layer)
 {
-    override val fragmentDataType: Class<out MapFragmentData<*>> = StandardMapFragmentData::class.java
+    override val dataType: Class<out MapFragmentData<*>> = StandardMapFragmentData::class.java
 
     override fun draw(g: Graphics)
     {

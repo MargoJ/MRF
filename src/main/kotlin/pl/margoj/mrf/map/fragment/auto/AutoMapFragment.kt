@@ -11,7 +11,7 @@ import java.util.LinkedHashMap
 
 class AutoMapFragment(override val tileset: AutoTileset, val map: MargoMap, val tilesetFile: TilesetFile, point: Point, layer: Int) : MapFragment(tileset, point, layer)
 {
-    override val fragmentDataType: Class<out MapFragmentData<*>> = AutoMapFragmentData::class.java
+    override val dataType: Class<out MapFragmentData<*>> = AutoMapFragmentData::class.java
 
     override fun draw(g: Graphics)
     {

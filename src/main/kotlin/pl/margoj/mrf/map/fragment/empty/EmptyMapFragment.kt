@@ -7,7 +7,7 @@ import java.awt.Graphics
 
 class EmptyMapFragment(point: Point, layer: Int) : MapFragment(null, point, layer)
 {
-    override val fragmentDataType: Class<out MapFragmentData<*>> = EmptyMapFragmentData::class.java
+    override val dataType: Class<out MapFragmentData<*>> = EmptyMapFragmentData::class.java
 
     override fun draw(g: Graphics)
     {

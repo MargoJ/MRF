@@ -4,6 +4,8 @@ import pl.margoj.mrf.map.MargoMap
 import pl.margoj.mrf.map.Point
 import pl.margoj.mrf.map.fragment.MapFragment
 import pl.margoj.mrf.map.fragment.MapFragmentData
+import pl.margoj.mrf.map.metadata.MapMetadataElementData
+import pl.margoj.mrf.map.metadata.MetadataElement
 import pl.margoj.mrf.map.objects.MapObject
 import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.serialization.MRFSerializer
@@ -37,7 +39,7 @@ class MapSerializer : MRFSerializer<MargoMap>()
                         val fragment = fragments[x][y][layer]
 
                         @Suppress("UNCHECKED_CAST")
-                        val data: MapFragmentData<MapFragment> = MapData.mapFragments.getByClass(fragment.fragmentDataType) as? MapFragmentData<MapFragment> ?: throw SerializationException("Unknown data type: ${fragment.fragmentDataType}")
+                        val data: MapFragmentData<MapFragment> = MapData.mapFragments.getByClass(fragment.dataType) as? MapFragmentData<MapFragment> ?: throw SerializationException("Unknown data type: ${fragment.dataType}")
 
                         context.output!!.writeByte(data.objectId)
                         data.encode(fragment, context)
@@ -71,9 +73,22 @@ class MapSerializer : MRFSerializer<MargoMap>()
             currentOut.write(stringConstantPoolContext.bytes)
         }
 
-        // reserved ; metadata elements count
-        currentOut.writeByte(0)
+        // metadata elements count
+        currentOut.writeByte(obj.metadata.size)
 
+        MapSerializationContext(obj).use {
+            metadataContext ->
+
+            for (element in obj.metadata)
+            {
+                @Suppress("UNCHECKED_CAST")
+                val data: MapMetadataElementData<MetadataElement> = MapData.mapMetadata.getByClass(element.dataType) as? MapMetadataElementData<MetadataElement> ?: throw SerializationException("Unknown type: ${element.dataType}")
+                metadataContext.output!!.writeByte(data.objectId)
+                data.encode(element, metadataContext)
+            }
+
+            currentOut.write(metadataContext.bytes)
+        }
         // actual map
         currentOut.write(context.bytes)
 
@@ -89,21 +104,24 @@ class MapSerializer : MRFSerializer<MargoMap>()
         // objects count
         currentOut.writeShort(obj.objects.size)
 
-        for (mapObject in obj.objects)
-        {
-            @Suppress("UNCHECKED_CAST")
-            val data: MapObjectData<MapObject<*>> = MapData.mapObjects.getByClass(mapObject.fragmentDataType) as? MapObjectData<MapObject<*>> ?: throw SerializationException("Unknown type: ${mapObject.fragmentDataType}")
 
-            currentOut.writeByte(data.objectId)
-            currentOut.writeByte(mapObject.position.x)
-            currentOut.writeByte(mapObject.position.y)
+        MapSerializationContext(obj).use {
+            objectContext ->
 
-            MapSerializationContext(obj).use {
-                objectContext ->
+            for (mapObject in obj.objects)
+            {
+                @Suppress("UNCHECKED_CAST")
+                val data: MapObjectData<MapObject<*>> = MapData.mapObjects.getByClass(mapObject.dataType) as? MapObjectData<MapObject<*>> ?: throw SerializationException("Unknown type: ${mapObject.dataType}")
+
+                val objectOut = objectContext.output!!
+                objectOut.writeByte(data.objectId)
+                objectOut.writeByte(mapObject.position.x)
+                objectOut.writeByte(mapObject.position.y)
+
                 data.encode(mapObject, objectContext)
-
-                currentOut.write(objectContext.bytes)
             }
+
+            currentOut.write(objectContext.bytes)
         }
 
         gzip?.close()

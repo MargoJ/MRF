@@ -3,10 +3,11 @@ package pl.margoj.mrf.map.fragment
 import org.apache.commons.lang3.Validate
 import pl.margoj.mrf.map.MargoMap
 import pl.margoj.mrf.map.Point
+import pl.margoj.mrf.map.serialization.DataTypeProperty
 import pl.margoj.mrf.map.tileset.Tileset
 import java.awt.Graphics
 
-abstract class MapFragment(open val tileset: Tileset?, val point: Point, val layer: Int)
+abstract class MapFragment(open val tileset: Tileset?, val point: Point, val layer: Int): DataTypeProperty<MapFragmentData<*>>
 {
     init
     {
@@ -14,7 +15,7 @@ abstract class MapFragment(open val tileset: Tileset?, val point: Point, val lay
     }
 
 
-    abstract val fragmentDataType: Class<out MapFragmentData<*>>
+    override abstract val dataType: Class<out MapFragmentData<*>>
 
     abstract fun draw(g: Graphics)
 

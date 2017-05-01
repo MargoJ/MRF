@@ -5,7 +5,10 @@ import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
 import pl.margoj.mrf.map.fragment.MapFragment
 import pl.margoj.mrf.map.fragment.empty.EmptyMapFragment
+import pl.margoj.mrf.map.metadata.MetadataElement
 import pl.margoj.mrf.map.objects.MapObject
+import pl.margoj.mrf.map.serialization.MapData
+import java.util.stream.Collectors
 
 class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResource(id, name), Iterable<Array<MapFragment>>
 {
@@ -14,6 +17,22 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
 
     private val objects_: MutableMap<Point, MapObject<*>> = hashMapOf()
     val objects: Collection<MapObject<*>> get() = this.objects_.values
+
+    private val metadata_: MutableMap<Class<*>, MetadataElement> = hashMapOf()
+    var metadata: Collection<MetadataElement>
+        get() = this.metadata_.values.stream().filter { it != MapData.mapMetadata.getByClass(it.dataType)!!.defaultValue }.collect(Collectors.toList())
+        set(value)
+        {
+            this.metadata_.clear()
+            value.forEach { this.metadata_[it.javaClass] = it }
+
+            MapData.mapMetadata.values.forEach {
+                if (!this.metadata_.containsKey(it.defaultValue.javaClass))
+                {
+                    this.metadata_[it.defaultValue.javaClass] = it.defaultValue
+                }
+            }
+        }
 
     override val category: Category get() = Category.MAPS
 
@@ -46,6 +65,8 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
         this.width = width
         this.height = height
         this.resize(width, height)
+
+        MapData.mapMetadata.values.forEach { this.metadata_[it.defaultValue.javaClass] = it.defaultValue }
     }
 
     fun resize(width: Int, height: Int)
@@ -157,6 +178,17 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
     fun deleteObject(position: Point)
     {
         this.objects_.remove(position)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T : MetadataElement> getMetadata(type: Class<T>): T
+    {
+        return this.metadata_[type] as T
+    }
+
+    fun setMetadata(element: MetadataElement)
+    {
+        this.metadata_[element::class.java] = element
     }
 
     override fun iterator(): Iterator<Array<MapFragment>>
