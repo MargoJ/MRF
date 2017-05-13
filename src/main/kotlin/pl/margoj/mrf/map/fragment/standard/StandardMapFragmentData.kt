@@ -12,7 +12,7 @@ class StandardMapFragmentData: MapFragmentData<StandardMapFragment>
     {
         val out = context.output!!
 
-        out.writeShort(context.stringConstantPool!!.store(obj.tileset.name).toInt())
+        out.writeShort(context.stringConstantPool!!.store(obj.tileset!!.name).toInt())
         out.writeByte(obj.tilesetPoint.x)
         out.writeByte(obj.tilesetPoint.y)
     }
@@ -20,7 +20,7 @@ class StandardMapFragmentData: MapFragmentData<StandardMapFragment>
     override fun decode(context: MapSerializationContext): StandardMapFragment
     {
         val input = context.input!!
-        val tileset = context.getTileset(context.stringConstantPool!!.load(input.readShort()))!!
+        val tileset = context.getTileset(context.stringConstantPool!!.load(input.readShort()))
         val tilesetPoint = Point(input.readByte().toInt(), input.readByte().toInt())
 
         return StandardMapFragment(tileset, tilesetPoint, context.currentTile, context.currentLayer)

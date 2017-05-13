@@ -7,7 +7,7 @@ class ResourceView(id: String, name: String, override val category: Category, va
 
     override fun equals(other: Any?): Boolean
     {
-        return (other is ResourceView) && (other == this || other.id == this.id)
+        return (other is ResourceView) && (other === this || other.id == this.id)
     }
 
     override fun hashCode(): Int

@@ -19,4 +19,6 @@ interface MargoResourceBundle
     fun deleteResource(view: ResourceView)
 
     fun saveBundle()
+
+    fun getResourcesByCategory(category: MargoResource.Category) = this.resources.filter { it.category == category }
 }

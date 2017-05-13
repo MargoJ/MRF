@@ -7,7 +7,7 @@ import pl.margoj.mrf.map.serialization.DataTypeProperty
 import pl.margoj.mrf.map.tileset.Tileset
 import java.awt.Graphics
 
-abstract class MapFragment(open val tileset: Tileset?, val point: Point, val layer: Int): DataTypeProperty<MapFragmentData<*>>
+abstract class MapFragment(open val tileset: Tileset?, val point: Point, val layer: Int) : DataTypeProperty<MapFragmentData<*>>
 {
     init
     {
@@ -18,6 +18,8 @@ abstract class MapFragment(open val tileset: Tileset?, val point: Point, val lay
     override abstract val dataType: Class<out MapFragmentData<*>>
 
     abstract fun draw(g: Graphics)
+
+    val isValid: Boolean get() = this.tileset != null;
 
     override fun equals(other: Any?): Boolean
     {

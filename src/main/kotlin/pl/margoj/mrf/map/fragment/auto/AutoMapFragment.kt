@@ -9,13 +9,13 @@ import pl.margoj.mrf.map.tileset.TilesetFile
 import java.awt.Graphics
 import java.util.LinkedHashMap
 
-class AutoMapFragment(override val tileset: AutoTileset, val map: MargoMap, val tilesetFile: TilesetFile, point: Point, layer: Int) : MapFragment(tileset, point, layer)
+class AutoMapFragment(override val tileset: AutoTileset?, val map: MargoMap, val tilesetFile: TilesetFile?, point: Point, layer: Int) : MapFragment(tileset, point, layer)
 {
     override val dataType: Class<out MapFragmentData<*>> = AutoMapFragmentData::class.java
 
     override fun draw(g: Graphics)
     {
-        val parts = this.tileset.getTilesetParts(this.tilesetFile)!!
+        val parts = this.tileset?.getTilesetParts(this.tilesetFile!!)!!
         val mask = this.getMask()
 
         g.drawImage(parts[this.getTilePart(tilingMapLeftUp, mask)], 0, 0, null)
@@ -85,17 +85,18 @@ class AutoMapFragment(override val tileset: AutoTileset, val map: MargoMap, val 
         return true
     }
 
-    override fun hashCode(): Int
-    {
-        var result = super.hashCode()
-        result = 31 * result + tileset.hashCode()
-        result = 31 * result + tilesetFile.hashCode()
-        return result
-    }
 
     override fun toString(): String
     {
         return "AutoMapFragment(map=$map, point=$point, tileset=$tileset, tilesetFile=$tilesetFile, layer=$layer)"
+    }
+
+    override fun hashCode(): Int
+    {
+        var result = super.hashCode()
+        result = 31 * result + (tileset?.hashCode() ?: 0)
+        result = 31 * result + (tilesetFile?.hashCode() ?: 0)
+        return result
     }
 
     companion object

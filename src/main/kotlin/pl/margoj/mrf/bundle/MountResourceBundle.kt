@@ -27,7 +27,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         }
     }
 
-    override val resources: Collection<ResourceView>
+    override val resources: MutableList<ResourceView>
         get()
         {
             if (this.resources_ == null)
@@ -92,7 +92,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         }
     }
 
-    protected open fun getLocalFile(view: ResourceView): File
+    open fun getLocalFile(view: ResourceView): File
     {
         val categoryDirectory = File(this.mount, view.category.id)
 
@@ -138,7 +138,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         FileOutputStream(this.getLocalFile(resource.view)).use {
             output ->
             IOUtils.copy(stream, output)
-            this.resources_!!.add(resource.view)
+            this.resources.add(resource.view)
             this.updateIndex(this.resources)
         }
         this.touched = true
@@ -151,9 +151,10 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         if (file.exists())
         {
             file.delete()
-            this.resources_!!.remove(view)
-            this.updateIndex(this.resources)
         }
+
+        this.resources.remove(view)
+        this.updateIndex(this.resources)
     }
 
     override fun loadResource(view: ResourceView): InputStream?

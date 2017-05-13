@@ -10,7 +10,7 @@ class AutoMapFragmentData: MapFragmentData<AutoMapFragment>
 
     override fun encode(obj: AutoMapFragment, context: MapSerializationContext)
     {
-        context.output!!.writeShort(context.stringConstantPool!!.store(obj.tilesetFile.name).toInt())
+        context.output!!.writeShort(context.stringConstantPool!!.store(obj.tilesetFile!!.name).toInt())
     }
 
     override fun decode(context: MapSerializationContext): AutoMapFragment
@@ -18,8 +18,8 @@ class AutoMapFragmentData: MapFragmentData<AutoMapFragment>
         val input = context.input!!
         val tileset = context.getTileset(AutoTileset.AUTO) as AutoTileset
         val tilesetName = context.stringConstantPool!!.load(input.readShort())
-        val tilesetFile = tileset.files.stream().filter({ tilesetName == it.name }).findAny().get()
+        val tilesetFile = tileset.files.stream().filter({ tilesetName == it.name }).findAny().orElse(null)
 
-        return AutoMapFragment(tileset, context.map, tilesetFile, context.currentTile, context.currentLayer)
+        return AutoMapFragment(if(tilesetFile == null) null else tileset, context.map, tilesetFile, context.currentTile, context.currentLayer)
     }
 }

@@ -46,7 +46,7 @@ class MapSerializationContext : SerializationContext
 
     fun getTileset(name: String?): Tileset?
     {
-        return if (name == null) null else this.tilesets?.get(name)
+        return if (name == null || name.isEmpty()) null else this.tilesets?.get(name)
     }
 
     private fun makeTilesetMap(tilesets: Collection<Tileset>): Map<String, Tileset>

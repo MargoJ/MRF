@@ -6,13 +6,13 @@ import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.tileset.Tileset
 import java.awt.Graphics
 
-class StandardMapFragment(override val tileset: Tileset, val tilesetPoint: Point, mapPoint: Point, layer: Int) : MapFragment(tileset, mapPoint, layer)
+class StandardMapFragment(override val tileset: Tileset?, val tilesetPoint: Point, mapPoint: Point, layer: Int) : MapFragment(tileset, mapPoint, layer)
 {
     override val dataType: Class<out MapFragmentData<*>> = StandardMapFragmentData::class.java
 
     override fun draw(g: Graphics)
     {
-        g.drawImage(tileset.image.getSubimage(this.tilesetPoint.x * 32, this.tilesetPoint.y * 32, 32, 32), 0, 0, null)
+        g.drawImage(tileset!!.image.getSubimage(this.tilesetPoint.x * 32, this.tilesetPoint.y * 32, 32, 32), 0, 0, null)
     }
 
     override fun equals(other: Any?): Boolean

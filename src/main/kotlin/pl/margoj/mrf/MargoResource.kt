@@ -25,12 +25,13 @@ abstract class MargoResource(id: String, open var name: String)
     enum class Category(val readableName: String, val id: String)
     {
         MAPS("Mapy", "maps"),
-        ITEMS("Przedmioty", "items");
+        ITEMS("Przedmioty", "items"),
+        TILESETS("Tilesety", "tilesets");
     }
 
     companion object
     {
-        val ID_PATTERN = Pattern.compile("[A-Za-z0-9_]{1,127}")
+        val ID_PATTERN = Pattern.compile("[A-Za-z0-9_-]{1,127}")
 
         fun getCategoryById(id: String): Category?
         {

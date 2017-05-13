@@ -191,6 +191,12 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
         this.metadata_[element::class.java] = element
     }
 
+    fun validate(): Boolean
+    {
+        this.forEach { it.forEach { fragment -> fragment.tileset ?: return false } }
+        return true
+    }
+
     override fun iterator(): Iterator<Array<MapFragment>>
     {
         return MapIterator(this.fragments)

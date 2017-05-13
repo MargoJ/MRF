@@ -5,24 +5,22 @@ import pl.margoj.mrf.map.Point
 import pl.margoj.mrf.map.fragment.MapFragment
 import pl.margoj.mrf.map.fragment.auto.AutoMapFragment
 import java.awt.image.BufferedImage
+import java.util.Collections
 
-class AutoTileset private constructor(name: String, image: BufferedImage) : Tileset(name, image)
+class AutoTileset private constructor(name: String, image: BufferedImage) : Tileset(name, image, Collections.emptyList())
 {
     // kids, don't try that at home
-    private lateinit var parts: Collection<TilesetFile>
     private lateinit var tilesetFiles: Map<Point, TilesetFile>
     private lateinit var tilesetParts: Map<TilesetFile, Array<BufferedImage>>
 
     private constructor(name: String, files: Collection<TilesetFile>, tilesetNames: MutableMap<Point, TilesetFile>, tilesetParts: MutableMap<TilesetFile, Array<BufferedImage>>) : this(name, createAutotilesetImage(files, tilesetNames, tilesetParts))
     {
-        this.parts = files
+        this.files = files
         this.tilesetFiles = tilesetNames
         this.tilesetParts = tilesetParts
     }
 
     constructor(name: String, parts: Collection<TilesetFile>) : this(name, parts, hashMapOf(), hashMapOf())
-
-    val files: Collection<TilesetFile> get() = this.parts
 
     fun getTilesetParts(file: TilesetFile): Array<BufferedImage>?
     {
@@ -36,7 +34,8 @@ class AutoTileset private constructor(name: String, image: BufferedImage) : Tile
 
     override fun getFragmentAt(map: MargoMap, tilesetPoint: Point, mapPoint: Point, layer: Int): MapFragment
     {
-        return AutoMapFragment(this, map, this.tilesetFiles.get(tilesetPoint)!!, mapPoint, layer)
+        val file = this.tilesetFiles.get(tilesetPoint)
+        return AutoMapFragment(if(file == null) null else this, map, file, mapPoint, layer)
     }
 
     override val auto: Boolean = true
@@ -72,9 +71,9 @@ class AutoTileset private constructor(name: String, image: BufferedImage) : Tile
                 // split tileset into parts
                 val parts: Array<BufferedImage?> = arrayOfNulls(48) // 8x6 grid, each tile is 16x16
 
-                for(partX in 0..5)
+                for (partX in 0..5)
                 {
-                    for(partY in 0..7)
+                    for (partY in 0..7)
                     {
                         parts[partY * 6 + (partX % 6)] = file.image.getSubimage(partX * 16, partY * 16, 16, 16)
                     }
@@ -83,7 +82,7 @@ class AutoTileset private constructor(name: String, image: BufferedImage) : Tile
                 @Suppress("UNCHECKED_CAST")
                 tilesetParts[file] = parts as Array<BufferedImage>
 
-                if(++x >= IMAGES_PER_ROW)
+                if (++x >= IMAGES_PER_ROW)
                 {
                     x = 0
                     y++
