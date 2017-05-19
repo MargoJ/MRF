@@ -42,4 +42,9 @@ abstract class MapFragment(open val tileset: Tileset?, val point: Point, val lay
         result = 31 * result + layer
         return result
     }
+
+    open fun validate(): Boolean
+    {
+        return this.tileset != null;
+    }
 }

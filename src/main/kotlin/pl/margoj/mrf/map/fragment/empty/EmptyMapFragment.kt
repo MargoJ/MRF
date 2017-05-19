@@ -17,4 +17,9 @@ class EmptyMapFragment(point: Point, layer: Int) : MapFragment(null, point, laye
     {
         return "EmptyMapFragment(point=$point, layer=$layer)"
     }
+
+    override fun validate(): Boolean
+    {
+        return true;
+    }
 }

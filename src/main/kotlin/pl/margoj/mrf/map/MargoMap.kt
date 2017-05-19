@@ -193,7 +193,7 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
 
     fun validate(): Boolean
     {
-        this.forEach { it.forEach { fragment -> fragment.tileset ?: return false } }
+        this.forEach { it.forEach { fragment -> if(!fragment.validate()) return false } }
         return true
     }
 
