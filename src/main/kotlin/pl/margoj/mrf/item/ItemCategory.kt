@@ -1,8 +1,8 @@
 package pl.margoj.mrf.item
 
-enum class ItemType(localizedName: String, margoId: Int)
+enum class ItemCategory(val localizedName: String, val margoId: Int)
 {
-    NONE("", 0),
+    NONE("-Brak kategorii -", 0),
 
     ONE_HANDED_WEAPONS("Jednoręczne", 1),
 
@@ -56,11 +56,14 @@ enum class ItemType(localizedName: String, margoId: Int)
 
     UPGRADES("Ulepszenia", 26);
 
-    private val BY_ID = hashMapOf<Int, ItemType>()
-    val VALUES: Collection<ItemType> get() = BY_ID.values
-
-    fun getById(id: Int): ItemType?
+    companion object
     {
-        return BY_ID[id]
+        private val BY_ID = hashMapOf<Int, ItemCategory>()
+        val VALUES: Collection<ItemCategory> get() = BY_ID.values
+
+        operator fun get(id: Int): ItemCategory?
+        {
+            return BY_ID[id]
+        }
     }
 }

@@ -4,11 +4,13 @@ enum class ItemRarity(val localizedName: String, val statType: String?)
 {
     NORMAL("Normalny", null),
 
+    UPGRADED("Ulepszony", "upgraded"),
+
     UNIQUE("Unikat", "unique"),
 
     HEROIC("Heroiczny", "heroic"),
 
     LEGENDARY("Legendarny", "legendary"),
 
-    UPGRADED("Ulepszony", "upgraded")
+    ARTIFACT("Artefakt", "artefact")
 }
