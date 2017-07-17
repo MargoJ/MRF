@@ -19,7 +19,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
     {
         if (this.mount.exists())
         {
-            Validate.isTrue(this.mount.isDirectory(), "Mount point is a file")
+            Validate.isTrue(this.mount.isDirectory, "Mount point is a file")
         }
         else
         {
@@ -62,7 +62,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         return resources
     }
 
-    protected open fun createIndex(views: Collection<ResourceView>): InputStream
+    open fun createIndex(views: Collection<ResourceView>): InputStream
     {
         val root = JsonObject()
 
@@ -130,11 +130,17 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
 
     override fun getResource(category: MargoResource.Category, id: String): ResourceView?
     {
-        return this.resources.stream().filter() { it.id == id && it.category == category }.findAny().orElse(null)
+        return this.resources.stream().filter { it.id == id && it.category == category }.findAny().orElse(null)
     }
 
     override fun saveResource(resource: MargoResource, stream: InputStream)
     {
+        val existing = this.getResource(resource.category, resource.id)
+        if(existing != null)
+        {
+            this.deleteResource(existing)
+        }
+
         FileOutputStream(this.getLocalFile(resource.view)).use {
             output ->
             IOUtils.copy(stream, output)
@@ -155,6 +161,8 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
 
         this.resources.remove(view)
         this.updateIndex(this.resources)
+
+
     }
 
     override fun loadResource(view: ResourceView): InputStream?

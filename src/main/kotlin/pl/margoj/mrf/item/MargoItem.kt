@@ -42,4 +42,23 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
 
         return property.default
     }
+
+    override fun toString(): String
+    {
+        val builder = StringBuilder("MargoItem(\n")
+        builder.append("\tid = ").append(id).append(", \n")
+
+        for ((key, value) in this.properties)
+        {
+            if(key.default == value)
+            {
+                continue
+            }
+
+            builder.append("\t").append(key.name).append(" = ").append(value).append(", \n")
+        }
+
+        builder.append(")")
+        return builder.toString()
+    }
 }

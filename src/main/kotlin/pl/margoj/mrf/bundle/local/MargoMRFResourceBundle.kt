@@ -67,6 +67,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
             }
 
             val tempMrf = File(Paths.TEMP_DIR, System.currentTimeMillis().toString() + ".mrf")
+            tempMrf.deleteOnExit()
 
             ZipOutputStream(FileOutputStream(tempMrf)).use {
                 zipOut ->
@@ -119,7 +120,6 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
             this.zip?.close()
 
             Files.copy(tempMrf.toPath(), this.mrfFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
-            tempMrf.delete()
 
             this.zip = ZipFile(this.mrfFile)
             this.touched = false

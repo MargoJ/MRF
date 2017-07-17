@@ -58,12 +58,9 @@ enum class ItemCategory(val localizedName: String, val margoId: Int)
 
     companion object
     {
-        private val BY_ID = hashMapOf<Int, ItemCategory>()
-        val VALUES: Collection<ItemCategory> get() = BY_ID.values
-
         operator fun get(id: Int): ItemCategory?
         {
-            return BY_ID[id]
+            return ItemCategory.values().find { it.margoId == id }
         }
     }
 }

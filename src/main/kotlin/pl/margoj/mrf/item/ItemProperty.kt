@@ -9,6 +9,8 @@ object ItemProperties
     val NAME = NameProperty(id = 0, name = "Nazwa przedmiotu");
     val CATEGORY = CategoryProperty(id = 1, name = "Kategoria przedmiotu")
     val RARITY = RarityProperty(id = 2, name = "Klasa przedmiotu")
+    val ICON = IconProperty(id = 3, name = "Ikonka przedmiotu")
+    val PRICE = PriceProperty(id = 4, name = "Cena przedmiotu")
 
     val DESCRIPTION = StringProperty(id = 10, name = "Opis", propertyName = "opis", long = true)
 
@@ -55,5 +57,10 @@ abstract class ItemProperty<T>(
     override fun compareTo(other: ItemProperty<*>): Int
     {
         return this.id - other.id
+    }
+
+    override fun toString(): String
+    {
+        return "${this.javaClass.name}(id = $id)"
     }
 }

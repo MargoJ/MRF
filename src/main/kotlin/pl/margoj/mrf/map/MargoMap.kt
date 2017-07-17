@@ -95,7 +95,6 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
                     y ->
                     Array(LAYERS, {
                         layer ->
-                        @Suppress("USELESS_CAST")
                         EmptyMapFragment(Point(x, y), layer) as MapFragment
                     })
                 })
