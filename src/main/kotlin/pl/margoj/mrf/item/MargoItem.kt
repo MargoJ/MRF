@@ -22,8 +22,19 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
         this.name = name
     }
 
-    var itemCategory: ItemCategory = this[ItemProperties.CATEGORY]
-    val itemRarity: ItemRarity = this[ItemProperties.RARITY]
+    var itemCategory: ItemCategory
+        get() = this[ItemProperties.CATEGORY]
+        set(value)
+        {
+            this[ItemProperties.CATEGORY] = value
+        }
+
+    var itemRarity: ItemRarity
+        get() = this[ItemProperties.RARITY]
+        set(value)
+        {
+            this[ItemProperties.RARITY] = value
+        }
 
     operator fun <T> set(property: ItemProperty<T>, value: T)
     {
@@ -50,7 +61,7 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
 
         for ((key, value) in this.properties)
         {
-            if(key.default == value)
+            if (key.default == value)
             {
                 continue
             }

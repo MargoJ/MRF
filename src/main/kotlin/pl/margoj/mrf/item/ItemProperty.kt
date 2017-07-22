@@ -18,6 +18,8 @@ object ItemProperties
     val DEXTERITY = IntProperty(id = 22, name = "Zręczność", propertyName = "dz")
     val INTELLECT = IntProperty(id = 23, name = "Inteligencja", propertyName = "di")
 
+    val SIZE = IntProperty(id = 50, name = "Pojemnosc (tylko torby)", propertyName = "bag")
+
     val NO_DESCRIPTION = BooleanProperty(id = 31, name = "Niezidentyfikowany", propertyName = "nodesc")
 }
 
