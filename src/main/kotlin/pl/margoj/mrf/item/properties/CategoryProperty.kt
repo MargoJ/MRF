@@ -5,7 +5,7 @@ import pl.margoj.mrf.item.ItemProperty
 import java.io.DataInputStream
 import java.io.DataOutputStream
 
-class CategoryProperty(id: Int, name: String) : ItemProperty<ItemCategory>(id = id, name = name, propertyName = "__CATEGORY", default = ItemCategory.NONE)
+class CategoryProperty(id: Int, name: String) : ItemProperty<ItemCategory>(id = id, name = name, default = ItemCategory.NONE, showWhenRestricted = true)
 {
     override fun serialize(out: DataOutputStream, value: ItemCategory)
     {

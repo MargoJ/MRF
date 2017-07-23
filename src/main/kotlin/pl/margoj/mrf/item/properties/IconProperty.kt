@@ -5,7 +5,7 @@ import pl.margoj.mrf.item.serialization.ItemFormat
 import pl.margoj.mrf.item.serialization.ItemIcon
 import java.io.*
 
-class IconProperty(id: Int, name: String) : ItemProperty<ItemIcon?>(id = id, propertyName = "__ICON", name = name, default = null)
+class IconProperty(id: Int, name: String) : ItemProperty<ItemIcon?>(id = id, name = name, default = null, showWhenRestricted = true)
 {
     override fun serialize(out: DataOutputStream, value: ItemIcon?)
     {

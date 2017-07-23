@@ -8,8 +8,9 @@ class BooleanProperty(
         id: Int,
         name: String,
         default: Boolean = false,
-        propertyName: String
-) : ItemProperty<Boolean>(id = id, name = name, default = default, propertyName = propertyName)
+        propertyName: String,
+        showWhenRestricted: Boolean = false
+) : ItemProperty<Boolean>(id = id, name = name, default = default, propertyName = propertyName, showWhenRestricted = showWhenRestricted)
 {
     override fun serialize(out: DataOutputStream, value: Boolean)
     {

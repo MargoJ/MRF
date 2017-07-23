@@ -7,10 +7,11 @@ import java.io.DataOutputStream
 open class LongProperty(
         id: Int,
         name: String,
-        propertyName: String,
+        propertyName: String? = null,
         val minimum: Long = 0,
-        default: Long = 0
-) : ItemProperty<Long>(id, name = name, propertyName = propertyName, default = default)
+        default: Long = 0,
+        showWhenRestricted: Boolean = false
+) : ItemProperty<Long>(id, name = name, propertyName = propertyName, default = default, showWhenRestricted = showWhenRestricted)
 {
     override fun serialize(out: DataOutputStream, value: Long)
     {

@@ -5,7 +5,7 @@ import pl.margoj.mrf.item.ItemRarity
 import java.io.DataInputStream
 import java.io.DataOutputStream
 
-class RarityProperty(id: Int, name: String) : ItemProperty<ItemRarity>(id = id, name = name, propertyName = "__RARITY", default = ItemRarity.NORMAL)
+class RarityProperty(id: Int, name: String) : ItemProperty<ItemRarity>(id = id, name = name, default = ItemRarity.NORMAL, showWhenRestricted = true)
 {
     override fun serialize(out: DataOutputStream, value: ItemRarity)
     {

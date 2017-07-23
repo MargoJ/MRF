@@ -7,11 +7,12 @@ import java.io.DataOutputStream
 open class StringProperty(
         id: Int,
         name: String,
-        propertyName: String,
+        propertyName: String? = null,
         default: String = "",
+        showWhenRestricted: Boolean = false,
         val long: Boolean = false,
         val regexp: Regex? = null
-) : ItemProperty<String>(id = id, name = name, propertyName = propertyName, default = default)
+) : ItemProperty<String>(id = id, name = name, propertyName = propertyName, default = default, showWhenRestricted = showWhenRestricted)
 {
     override fun serialize(out: DataOutputStream, value: String)
     {
