@@ -192,7 +192,7 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
 
     fun validate(): Boolean
     {
-        this.forEach { it.forEach { fragment -> if(!fragment.validate()) return false } }
+        this.forEach { it.forEach { fragment -> if (!fragment.validate()) return false } }
         return true
     }
 
@@ -206,5 +206,6 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
         const val LAYERS = 10
         const val COLLISION_LAYER = LAYERS
         const val OBJECT_LAYER = LAYERS + 1
+        const val MAX_SIZE = 128
     }
 }
