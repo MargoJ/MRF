@@ -10,6 +10,7 @@ import pl.margoj.mrf.map.metadata.welcome.WelcomeMessage
 import pl.margoj.mrf.map.metadata.welcome.WelcomeMessageData
 import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
+import pl.margoj.mrf.map.objects.mapspawn.MapSpawnObjectData
 
 class MapData<T : SerializationData<*>>
 {
@@ -52,6 +53,7 @@ class MapData<T : SerializationData<*>>
             mapFragments.registerData(AutoMapFragmentData())
 
             mapObjects.registerData(GatewayObjectData())
+            mapObjects.registerData(MapSpawnObjectData())
 
             mapMetadata.registerData(MapPvPData())
             mapMetadata.registerData(WelcomeMessageData())
