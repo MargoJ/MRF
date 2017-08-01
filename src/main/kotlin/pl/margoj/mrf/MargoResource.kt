@@ -27,7 +27,8 @@ abstract class MargoResource(id: String, open var name: String)
     {
         MAPS("Mapy", "maps"),
         ITEMS("Przedmioty", "items"),
-        TILESETS("Tilesety", "tilesets");
+        TILESETS("Tilesety", "tilesets"),
+        NPC_SCRIPTS("Skrypty NPC", "npcscripts");
     }
 
     override fun equals(other: Any?): Boolean

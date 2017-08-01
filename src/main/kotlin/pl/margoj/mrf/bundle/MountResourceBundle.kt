@@ -161,8 +161,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
 
         this.resources.remove(view)
         this.updateIndex(this.resources)
-
-
+        this.touched = true
     }
 
     override fun loadResource(view: ResourceView): InputStream?
