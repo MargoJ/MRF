@@ -1,13 +1,13 @@
 package pl.margoj.mrf.item.properties
 
 import pl.margoj.mrf.item.ItemProperty
-import pl.margoj.mrf.item.serialization.ItemFormat
-import pl.margoj.mrf.item.serialization.ItemIcon
+import pl.margoj.mrf.MRFIconFormat
+import pl.margoj.mrf.MRFIcon
 import java.io.*
 
-class IconProperty(id: Int, name: String) : ItemProperty<ItemIcon?>(id = id, name = name, default = null, showWhenRestricted = true)
+class IconProperty(id: Int, name: String) : ItemProperty<MRFIcon?>(id = id, name = name, default = null, showWhenRestricted = true)
 {
-    override fun serialize(out: DataOutputStream, value: ItemIcon?)
+    override fun serialize(out: DataOutputStream, value: MRFIcon?)
     {
         value!!
 
@@ -16,9 +16,9 @@ class IconProperty(id: Int, name: String) : ItemProperty<ItemIcon?>(id = id, nam
         out.write(value.image)
     }
 
-    override fun deserialize(input: DataInputStream): ItemIcon?
+    override fun deserialize(input: DataInputStream): MRFIcon?
     {
-        val format = ItemFormat.getById(input.readByte().toInt())
+        val format = MRFIconFormat.getById(input.readByte().toInt())
         val size = input.readShort().toInt()
         val buffer = ByteArray(size)
         val read = input.read(buffer)
@@ -28,6 +28,6 @@ class IconProperty(id: Int, name: String) : ItemProperty<ItemIcon?>(id = id, nam
             throw IOException("icon loading failed, read = $read, size = $size")
         }
 
-        return ItemIcon(buffer, format!!, null)
+        return MRFIcon(buffer, format!!, null)
     }
 }
