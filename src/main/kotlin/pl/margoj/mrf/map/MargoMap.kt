@@ -204,6 +204,7 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
     companion object
     {
         const val LAYERS = 10
+        const val COVERING_LAYER = LAYERS - 1
         const val COLLISION_LAYER = LAYERS
         const val OBJECT_LAYER = LAYERS + 1
         const val MAX_SIZE = 128
