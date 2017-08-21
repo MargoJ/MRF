@@ -6,7 +6,7 @@ import java.io.DataOutputStream
 
 object ItemProperties
 {
-    val NAME = NameProperty(id = 0, name = "Nazwa przedmiotu");
+    val NAME = NameProperty(id = 0, name = "Nazwa przedmiotu")
     val CATEGORY = CategoryProperty(id = 1, name = "Kategoria przedmiotu")
     val RARITY = RarityProperty(id = 2, name = "Klasa przedmiotu")
     val ICON = IconProperty(id = 3, name = "Ikonka przedmiotu")
@@ -54,7 +54,7 @@ abstract class ItemProperty<T>(
 
     init
     {
-        _properties.put(this.id, this);
+        _properties.put(this.id, this)
     }
 
     abstract fun serialize(out: DataOutputStream, value: T)

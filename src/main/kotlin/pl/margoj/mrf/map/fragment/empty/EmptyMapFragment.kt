@@ -20,6 +20,6 @@ class EmptyMapFragment(point: Point, layer: Int) : MapFragment(null, point, laye
 
     override fun validate(): Boolean
     {
-        return true;
+        return true
     }
 }

@@ -19,7 +19,7 @@ abstract class MapFragment(open val tileset: Tileset?, val point: Point, val lay
 
     abstract fun draw(g: Graphics)
 
-    val isValid: Boolean get() = this.tileset != null;
+    val isValid: Boolean get() = this.tileset != null
 
     override fun equals(other: Any?): Boolean
     {
@@ -45,6 +45,6 @@ abstract class MapFragment(open val tileset: Tileset?, val point: Point, val lay
 
     open fun validate(): Boolean
     {
-        return this.tileset != null;
+        return this.tileset != null
     }
 }

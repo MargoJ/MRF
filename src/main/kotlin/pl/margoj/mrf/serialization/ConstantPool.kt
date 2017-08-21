@@ -7,11 +7,11 @@ abstract class ConstantPool<T>
 
     fun store(obj: T): Short
     {
-        for(entry in objects.entries)
+        for((key, value) in objects)
         {
-            if(entry.value == obj)
+            if(value == obj)
             {
-                return entry.key
+                return key
             }
         }
 

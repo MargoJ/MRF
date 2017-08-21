@@ -5,7 +5,7 @@ import java.io.DataInputStream
 import java.io.IOException
 import java.io.InputStream
 
-abstract class MRFDeserializer<T>
+abstract class MRFDeserializer<out T>
 {
     protected abstract fun doDeserialize(input: DataInputStream): T
 

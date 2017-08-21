@@ -1,6 +1,5 @@
 package pl.margoj.mrf.map.fragment.empty
 
-import pl.margoj.mrf.map.Point
 import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.serialization.MapSerializationContext
 

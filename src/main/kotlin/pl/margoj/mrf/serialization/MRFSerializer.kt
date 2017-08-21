@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.io.IOException
 
-abstract class MRFSerializer<T>
+abstract class MRFSerializer<in T>
 {
     private val baos = ByteArrayOutputStream()
 

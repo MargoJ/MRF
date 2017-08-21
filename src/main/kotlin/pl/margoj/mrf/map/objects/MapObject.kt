@@ -9,5 +9,5 @@ abstract class MapObject<M: MapObject<M>>: DataTypeProperty<MapObjectData<*>>
 
     override abstract val dataType: Class<out MapObjectData<*>>
 
-    abstract fun copyObject(): M;
+    abstract fun copyObject(): M
 }

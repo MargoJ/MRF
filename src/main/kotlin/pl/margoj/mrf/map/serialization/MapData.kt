@@ -6,12 +6,10 @@ import pl.margoj.mrf.map.fragment.empty.EmptyMapFragmentData
 import pl.margoj.mrf.map.fragment.standard.StandardMapFragmentData
 import pl.margoj.mrf.map.metadata.MapMetadataElementData
 import pl.margoj.mrf.map.metadata.pvp.MapPvPData
-import pl.margoj.mrf.map.metadata.welcome.WelcomeMessage
 import pl.margoj.mrf.map.metadata.welcome.WelcomeMessageData
 import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
 import pl.margoj.mrf.map.objects.mapspawn.MapSpawnObjectData
-import pl.margoj.mrf.map.objects.npc.NpcMapObject
 import pl.margoj.mrf.map.objects.npc.NpcMapObjectData
 
 class MapData<T : SerializationData<*>>
