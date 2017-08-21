@@ -30,7 +30,7 @@ class MountedResourceBundle(mountPoint: File) : MountResourceBundle(mountPoint)
     override fun provideInput(view: ResourceView): InputStream?
     {
         val file = this.getLocalFile(view)
-        return if(!file.exists()) null else FileInputStream(file)
+        return if (!file.exists()) null else FileInputStream(file)
     }
 
     override fun unpack(view: ResourceView): File?
@@ -47,7 +47,7 @@ class MountedResourceBundle(mountPoint: File) : MountResourceBundle(mountPoint)
             {
                 FileOutputStream(indexFile).use { it.write("{}".toByteArray()) }
             }
-            catch(e: IOException)
+            catch (e: IOException)
             {
                 throw SerializationException(e)
             }

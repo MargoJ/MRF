@@ -4,7 +4,7 @@ import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.serialization.MapSerializationContext
 import pl.margoj.mrf.map.tileset.AutoTileset
 
-class AutoMapFragmentData: MapFragmentData<AutoMapFragment>
+class AutoMapFragmentData : MapFragmentData<AutoMapFragment>
 {
     override val objectId: Int = 2
 
@@ -20,6 +20,6 @@ class AutoMapFragmentData: MapFragmentData<AutoMapFragment>
         val tilesetName = context.stringConstantPool!!.load(input.readShort())
         val tilesetFile = tileset.files.stream().filter({ tilesetName == it.name }).findAny().orElse(null)
 
-        return AutoMapFragment(if(tilesetFile == null) null else tileset, context.map, tilesetFile, context.currentTile, context.currentLayer)
+        return AutoMapFragment(if (tilesetFile == null) null else tileset, context.map, tilesetFile, context.currentTile, context.currentLayer)
     }
 }

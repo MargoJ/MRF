@@ -5,7 +5,7 @@ import pl.margoj.mrf.bundle.MountResourceBundle
 import java.io.File
 import java.io.InputStream
 
-class MargoRemoteResourceBundle(mountPoint: File): MountResourceBundle(mountPoint)
+class MargoRemoteResourceBundle(mountPoint: File) : MountResourceBundle(mountPoint)
 {
     override val remote: Boolean = true
 

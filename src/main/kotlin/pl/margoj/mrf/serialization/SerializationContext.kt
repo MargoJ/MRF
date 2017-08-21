@@ -2,7 +2,7 @@ package pl.margoj.mrf.serialization
 
 import java.io.*
 
-open class SerializationContext: Closeable
+open class SerializationContext : Closeable
 {
     var input: DataInputStream? = null
         private set

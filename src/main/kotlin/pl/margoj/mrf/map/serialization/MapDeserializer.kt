@@ -38,7 +38,7 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
         val context = MapSerializationContext(currentInput, this.tilesets, map)
         context.stringConstantPool = stringConstantPool
 
-        for(i in 1..currentInput.readByte()) // metadata elements count
+        for (i in 1..currentInput.readByte()) // metadata elements count
         {
             val id = currentInput.readByte().toInt()
 
@@ -77,9 +77,8 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
         }
 
 
-
         val objects = currentInput.readShort() // objects count
-        for(i in 1..objects)
+        for (i in 1..objects)
         {
             val id = currentInput.readByte().toInt()
 

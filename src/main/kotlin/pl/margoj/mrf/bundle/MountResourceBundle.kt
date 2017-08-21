@@ -43,10 +43,8 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         val root = parser.parse(InputStreamReader(input)).asJsonObject
         val resources = ArrayList<ResourceView>(root.size())
 
-        root.entrySet().forEach {
-            (categoryName, entries) ->
-            entries.asJsonObject.entrySet().forEach {
-                (key, value) ->
+        root.entrySet().forEach { (categoryName, entries) ->
+            entries.asJsonObject.entrySet().forEach { (key, value) ->
 
                 val json = value.asJsonObject
 
@@ -86,7 +84,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         {
             return IOUtils.toInputStream(root.toString(), "UTF-8")
         }
-        catch(e: IOException)
+        catch (e: IOException)
         {
             throw SerializationException(e)
         }
@@ -108,8 +106,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
     {
         val file = this.getLocalFile(view)
 
-        this.provideInput(view).use {
-            inputStream ->
+        this.provideInput(view).use { inputStream ->
 
             if (inputStream == null)
             {
@@ -136,13 +133,12 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
     override fun saveResource(resource: MargoResource, stream: InputStream)
     {
         val existing = this.getResource(resource.category, resource.id)
-        if(existing != null)
+        if (existing != null)
         {
             this.deleteResource(existing)
         }
 
-        FileOutputStream(this.getLocalFile(resource.view)).use {
-            output ->
+        FileOutputStream(this.getLocalFile(resource.view)).use { output ->
             IOUtils.copy(stream, output)
             this.resources.add(resource.view)
             this.updateIndex(this.resources)
@@ -169,12 +165,12 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         try
         {
             val local = this.loadLocally(view)
-            if(local != null)
+            if (local != null)
             {
                 return local
             }
 
-            return if(this.unpack(view) != null) this.loadLocally(view) else null
+            return if (this.unpack(view) != null) this.loadLocally(view) else null
         }
         catch (e: IOException)
         {
@@ -186,8 +182,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
     {
         try
         {
-            FileOutputStream(File(this.mount, "index.json")).use({
-                output ->
+            FileOutputStream(File(this.mount, "index.json")).use({ output ->
                 this.createIndex(resources).use { input -> IOUtils.copy(input, output) }
             })
         }

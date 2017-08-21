@@ -1,9 +1,11 @@
 package pl.margoj.mrf.item.properties
 
-import pl.margoj.mrf.item.ItemProperty
-import pl.margoj.mrf.MRFIconFormat
 import pl.margoj.mrf.MRFIcon
-import java.io.*
+import pl.margoj.mrf.MRFIconFormat
+import pl.margoj.mrf.item.ItemProperty
+import java.io.DataInputStream
+import java.io.DataOutputStream
+import java.io.IOException
 
 class IconProperty(id: Int, name: String) : ItemProperty<MRFIcon?>(id = id, name = name, default = null, showWhenRestricted = true)
 {

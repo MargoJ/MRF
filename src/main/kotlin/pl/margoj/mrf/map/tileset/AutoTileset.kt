@@ -35,7 +35,7 @@ class AutoTileset private constructor(name: String, image: BufferedImage) : Tile
     override fun getFragmentAt(map: MargoMap, tilesetPoint: Point, mapPoint: Point, layer: Int): MapFragment
     {
         val file = this.tilesetFiles[tilesetPoint]
-        return AutoMapFragment(if(file == null) null else this, map, file, mapPoint, layer)
+        return AutoMapFragment(if (file == null) null else this, map, file, mapPoint, layer)
     }
 
     override val auto: Boolean = true

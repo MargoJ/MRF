@@ -21,11 +21,11 @@ class StringConstantPool : ConstantPool<String>()
 
         val length = input.readShort()
 
-        for(i in 1..length)
+        for (i in 1..length)
         {
             val index = input.readShort()
 
-            if(this.objects.put(index, input.readUTF()) != null)
+            if (this.objects.put(index, input.readUTF()) != null)
             {
                 throw SerializationException("Invalid constant pool format; index=$index has more than one mapping")
             }

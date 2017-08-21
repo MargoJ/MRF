@@ -67,8 +67,7 @@ class MapSerializer : MRFSerializer<MargoMap>()
         currentOut.writeByte(MargoMap.LAYERS)
 
         // string constant pool
-        SerializationContext().use {
-            stringConstantPoolContext ->
+        SerializationContext().use { stringConstantPoolContext ->
             context.stringConstantPool!!.serialize(stringConstantPoolContext)
             currentOut.write(stringConstantPoolContext.bytes)
         }
@@ -76,8 +75,7 @@ class MapSerializer : MRFSerializer<MargoMap>()
         // metadata elements count
         currentOut.writeByte(obj.metadata.size)
 
-        MapSerializationContext(obj).use {
-            metadataContext ->
+        MapSerializationContext(obj).use { metadataContext ->
 
             for (element in obj.metadata)
             {
@@ -105,8 +103,7 @@ class MapSerializer : MRFSerializer<MargoMap>()
         currentOut.writeShort(obj.objects.size)
 
 
-        MapSerializationContext(obj).use {
-            objectContext ->
+        MapSerializationContext(obj).use { objectContext ->
 
             for (mapObject in obj.objects)
             {

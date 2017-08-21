@@ -7,11 +7,11 @@ class ResourceView(id: String, name: String, override val category: Category, va
 
     override fun equals(other: Any?): Boolean
     {
-        if(other !is ResourceView)
+        if (other !is ResourceView)
         {
             return false
         }
-        if(other === this)
+        if (other === this)
         {
             return true
         }

@@ -24,7 +24,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
         {
             this.zip = if (mrfFile.exists()) ZipFile(mrfFile) else null
         }
-        catch(e: IOException)
+        catch (e: IOException)
         {
             throw SerializationException(e)
         }
@@ -69,8 +69,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
             val tempMrf = File(Paths.TEMP_DIR, System.currentTimeMillis().toString() + ".mrf")
             tempMrf.deleteOnExit()
 
-            ZipOutputStream(FileOutputStream(tempMrf)).use {
-                zipOut ->
+            ZipOutputStream(FileOutputStream(tempMrf)).use { zipOut ->
                 if (this.zip != null)
                 {
                     // copy unchanged files from old to new
@@ -104,8 +103,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
                 }
 
                 // put the new files
-                filesToPack.forEach{
-                    key, value ->
+                filesToPack.forEach { key, value ->
                     zipOut.putNextEntry(ZipEntry(key))
                     IOUtils.write(value, zipOut)
                     zipOut.closeEntry()
@@ -143,7 +141,7 @@ class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBund
         {
             return this.getResourcesFromIndex(zip!!.getInputStream(indexEntry))
         }
-        catch(e: IOException)
+        catch (e: IOException)
         {
             throw SerializationException(e)
         }

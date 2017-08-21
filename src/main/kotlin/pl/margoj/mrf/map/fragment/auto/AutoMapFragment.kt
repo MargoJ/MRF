@@ -60,8 +60,7 @@ class AutoMapFragment(override val tileset: AutoTileset?, val map: MargoMap, val
     {
         var match = 0
 
-        tilingMap.forEach {
-            key, value ->
+        tilingMap.forEach { key, value ->
             if ((mask and key) == key)
             {
                 match = value

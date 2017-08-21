@@ -81,7 +81,7 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
             this.fragments
             initialized = true
         }
-        catch(e: UninitializedPropertyAccessException)
+        catch (e: UninitializedPropertyAccessException)
         {
             initialized = false
         }
@@ -89,12 +89,9 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
         if (!initialized)
         {
             this.collisions = Array(this.width, { kotlin.BooleanArray(this.height) })
-            this.fragments = Array(this.width, {
-                x ->
-                Array(this.height, {
-                    y ->
-                    Array(LAYERS, {
-                        layer ->
+            this.fragments = Array(this.width, { x ->
+                Array(this.height, { y ->
+                    Array(LAYERS, { layer ->
                         EmptyMapFragment(Point(x, y), layer) as MapFragment
                     })
                 })
@@ -102,20 +99,15 @@ class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResourc
             return
         }
 
-        val newCollisions: Array<BooleanArray> = Array(this.width, {
-            x ->
-            BooleanArray(this.height, {
-                y ->
+        val newCollisions: Array<BooleanArray> = Array(this.width, { x ->
+            BooleanArray(this.height, { y ->
                 if (x < collisions.size && y < collisions[x].size) collisions[x][y] else false
             })
         })
 
-        val newFragments: Array<Array<Array<MapFragment>>> = Array(this.width, {
-            x ->
-            Array(this.height, {
-                y ->
-                Array(LAYERS, {
-                    layer ->
+        val newFragments: Array<Array<Array<MapFragment>>> = Array(this.width, { x ->
+            Array(this.height, { y ->
+                Array(LAYERS, { layer ->
                     if (x < fragments.size && y < fragments[x].size) this.fragments[x][y][layer] else EmptyMapFragment(Point(x, y), layer)
                 })
             })

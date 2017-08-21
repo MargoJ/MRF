@@ -4,7 +4,7 @@ import pl.margoj.mrf.map.Point
 import pl.margoj.mrf.map.fragment.MapFragmentData
 import pl.margoj.mrf.map.serialization.MapSerializationContext
 
-class StandardMapFragmentData: MapFragmentData<StandardMapFragment>
+class StandardMapFragmentData : MapFragmentData<StandardMapFragment>
 {
     override val objectId: Int = 1
 
