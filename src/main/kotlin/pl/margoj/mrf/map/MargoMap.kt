@@ -10,7 +10,7 @@ import pl.margoj.mrf.map.objects.MapObject
 import pl.margoj.mrf.map.serialization.MapData
 import java.util.stream.Collectors
 
-class MargoMap(id: String, name: String, width: Int, height: Int) : MargoResource(id, name), Iterable<Array<MapFragment>>
+class MargoMap(val version: Byte, id: String, name: String, width: Int, height: Int) : MargoResource(id, name), Iterable<Array<MapFragment>>
 {
     lateinit var fragments: Array<Array<Array<MapFragment>>>
     lateinit var collisions: Array<BooleanArray>

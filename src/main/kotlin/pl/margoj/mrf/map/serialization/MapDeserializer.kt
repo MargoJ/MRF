@@ -16,7 +16,7 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
     {
         val mapVersion = input.readByte()
 
-        if (mapVersion != MapSerializer.CURRENT_VERSION.toByte())
+        if (mapVersion > MapSerializer.CURRENT_VERSION.toByte())
         {
             throw SerializationException("Version is invalid, map=$mapVersion, current=${MapSerializer.CURRENT_VERSION}")
         }
@@ -27,7 +27,7 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
         val currentInput = if (compressed) DataInputStream(gzip) else input
 
         // create base object
-        val map = MargoMap(currentInput.readUTF(), currentInput.readUTF(), currentInput.readShort().toInt(), currentInput.readShort().toInt())
+        val map = MargoMap(mapVersion, currentInput.readUTF(), currentInput.readUTF(), currentInput.readShort().toInt(), currentInput.readShort().toInt())
 
         currentInput.readByte() // layers count, we can ignore it for now
 

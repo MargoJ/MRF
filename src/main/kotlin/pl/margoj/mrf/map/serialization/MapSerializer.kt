@@ -126,6 +126,6 @@ class MapSerializer : MRFSerializer<MargoMap>()
 
     companion object
     {
-        const val CURRENT_VERSION = 0x01
+        const val CURRENT_VERSION = 0x02
     }
 }
