@@ -5,7 +5,11 @@ import pl.margoj.mrf.map.fragment.auto.AutoMapFragmentData
 import pl.margoj.mrf.map.fragment.empty.EmptyMapFragmentData
 import pl.margoj.mrf.map.fragment.standard.StandardMapFragmentData
 import pl.margoj.mrf.map.metadata.MapMetadataElementData
+import pl.margoj.mrf.map.metadata.ismain.IsMainData
+import pl.margoj.mrf.map.metadata.istown.IsTownData
+import pl.margoj.mrf.map.metadata.parentmap.ParentMapData
 import pl.margoj.mrf.map.metadata.pvp.MapPvPData
+import pl.margoj.mrf.map.metadata.respawnmap.RespawnMapData
 import pl.margoj.mrf.map.metadata.welcome.WelcomeMessageData
 import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
@@ -58,6 +62,11 @@ class MapData<T : SerializationData<*>>
 
             mapMetadata.registerData(MapPvPData())
             mapMetadata.registerData(WelcomeMessageData())
+            mapMetadata.registerData(ParentMapData())
+            mapMetadata.registerData(RespawnMapData())
+            mapMetadata.registerData(IsMainData())
+            mapMetadata.registerData(IsTownData())
+
         }
     }
 }

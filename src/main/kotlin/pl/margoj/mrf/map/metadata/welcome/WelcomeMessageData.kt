@@ -1,21 +1,13 @@
 package pl.margoj.mrf.map.metadata.welcome
 
-import pl.margoj.mrf.map.metadata.MapMetadataElementData
-import pl.margoj.mrf.map.serialization.MapSerializationContext
+import pl.margoj.mrf.map.metadata.prototypes.StringMetaData
 
-class WelcomeMessageData : MapMetadataElementData<WelcomeMessage>
+class WelcomeMessageData : StringMetaData<WelcomeMessage>()
 {
     override val objectId: Int = 2
 
-    override fun encode(obj: WelcomeMessage, context: MapSerializationContext)
+    override fun create(string: String): WelcomeMessage
     {
-        context.output!!.writeUTF(obj.value)
+        return WelcomeMessage(string)
     }
-
-    override fun decode(context: MapSerializationContext): WelcomeMessage
-    {
-        return WelcomeMessage(context.input!!.readUTF())
-    }
-
-    override val defaultValue: WelcomeMessage = WelcomeMessage()
 }

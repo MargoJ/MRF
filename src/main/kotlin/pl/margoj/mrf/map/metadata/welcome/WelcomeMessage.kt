@@ -1,9 +1,9 @@
 package pl.margoj.mrf.map.metadata.welcome
 
 import pl.margoj.mrf.map.metadata.MapMetadataElementData
-import pl.margoj.mrf.map.metadata.MetadataElement
+import pl.margoj.mrf.map.metadata.prototypes.StringMeta
 
-class WelcomeMessage(val value: String = "") : MetadataElement()
+class WelcomeMessage(override val value: String) : StringMeta()
 {
     override val dataType: Class<out MapMetadataElementData<*>> = WelcomeMessageData::class.java
 }
