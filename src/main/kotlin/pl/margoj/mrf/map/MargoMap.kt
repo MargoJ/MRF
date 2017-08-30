@@ -14,6 +14,7 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
 {
     lateinit var fragments: Array<Array<Array<MapFragment>>>
     lateinit var collisions: Array<BooleanArray>
+    lateinit var water: Array<IntArray>
 
     private val objects_: MutableMap<Point, MapObject<*>> = hashMapOf()
     val objects: Collection<MapObject<*>> get() = this.objects_.values
@@ -88,7 +89,8 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
 
         if (!initialized)
         {
-            this.collisions = Array(this.width, { kotlin.BooleanArray(this.height) })
+            this.collisions = Array(this.width, { BooleanArray(this.height) })
+            this.water = Array(this.width, { IntArray(this.height) })
             this.fragments = Array(this.width, { x ->
                 Array(this.height, { y ->
                     Array(LAYERS, { layer ->
@@ -105,6 +107,12 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
             })
         })
 
+        val newWater: Array<IntArray> = Array(this.width, { x ->
+            IntArray(this.height, { y ->
+                if (x < water.size && y < water[x].size) water[x][y] else 0
+            })
+        })
+
         val newFragments: Array<Array<Array<MapFragment>>> = Array(this.width, { x ->
             Array(this.height, { y ->
                 Array(LAYERS, { layer ->
@@ -115,6 +123,7 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
 
         this.collisions = newCollisions
         this.fragments = newFragments
+        this.water = newWater
     }
 
     fun inBounds(point: Point): Boolean
@@ -134,6 +143,21 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
             return false
         }
         this.collisions[point.x][point.y] = collision
+        return true
+    }
+
+    fun getWaterLevelAt(point: Point): Int
+    {
+        return if(this.inBounds(point)) this.water[point.x][point.y] else 0
+    }
+
+    fun setWaterLevelAt(point: Point, waterLevel: Int): Boolean
+    {
+        if(!this.inBounds(point))
+        {
+            return false
+        }
+        this.water[point.x][point.y] = waterLevel
         return true
     }
 
@@ -198,7 +222,8 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
         const val LAYERS = 10
         const val COVERING_LAYER = LAYERS - 1
         const val COLLISION_LAYER = LAYERS
-        const val OBJECT_LAYER = LAYERS + 1
+        const val WATER_LAYER = LAYERS + 1
+        const val OBJECT_LAYER = LAYERS + 2
         const val MAX_SIZE = 128
     }
 }

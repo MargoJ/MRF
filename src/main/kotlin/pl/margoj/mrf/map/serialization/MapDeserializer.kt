@@ -68,14 +68,25 @@ class MapDeserializer(private val tilesets: Collection<Tileset>) : MRFDeserializ
         // do not close the context
 
         // collisions
-        for (x in 0..(map.width - 1))
+        for (x in 0 until map.width)
         {
-            for (y in 0..(map.height - 1))
+            for (y in 0 until map.height)
             {
                 map.setCollisionAt(Point(x, y), currentInput.readBoolean())
             }
         }
 
+        // water
+        if(mapVersion >= 0x03)
+        {
+            for (x in 0 until map.width)
+            {
+                for (y in 0 until map.height)
+                {
+                    map.setWaterLevelAt(Point(x, y), currentInput.readByte().toInt())
+                }
+            }
+        }
 
         val objects = currentInput.readShort() // objects count
         for (i in 1..objects)

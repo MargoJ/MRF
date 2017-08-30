@@ -91,11 +91,20 @@ class MapSerializer : MRFSerializer<MargoMap>()
         currentOut.write(context.bytes)
 
         // collisions
-        for (x in 0..(obj.width - 1))
+        for (x in 0 until obj.width)
         {
-            for (y in 0..(obj.height - 1))
+            for (y in 0 until obj.height)
             {
                 currentOut.writeBoolean(obj.getCollisionAt(Point(x, y)))
+            }
+        }
+
+        // water
+        for (x in 0 until obj.width)
+        {
+            for (y in 0 until obj.height)
+            {
+                currentOut.writeByte(obj.getWaterLevelAt(Point(x, y)))
             }
         }
 
@@ -126,6 +135,6 @@ class MapSerializer : MRFSerializer<MargoMap>()
 
     companion object
     {
-        const val CURRENT_VERSION = 0x02
+        const val CURRENT_VERSION = 0x03
     }
 }
