@@ -8,7 +8,8 @@ data class NpcMapObject(
         var script: String? = null,
         var graphics: String? = null,
         var name: String? = null,
-        var level: Int? = null
+        var level: Int? = null,
+        var group: Int? = null
 ) : MapObject<NpcMapObject>()
 {
     override val dataType: Class<NpcMapObjectData> = NpcMapObjectData::class.java

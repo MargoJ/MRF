@@ -19,8 +19,10 @@ object ItemProperties
     val AGILITY = IntProperty(id = 22, name = "Zręczność", propertyName = "dz")
     val INTELLECT = IntProperty(id = 23, name = "Inteligencja", propertyName = "di")
     val HEALTH = IntProperty(id = 24, name = "Życie", propertyName = "hp")
-    val ATTACK_SPEED = IntProperty(id = 25, name = "SA (w formacie bez przecinka, np 58 SA == 0.58 SA)", propertyName = "sa")
+    val ATTACK_SPEED = IntProperty(id = 25, name = "SA (58 SA == 0.58 SA)", propertyName = "sa")
     val HEALTH_FOR_STRENGTH = DoubleProperty(id = 26, name = "X życia za 1 punkt siły", propertyName = "hpbon", default = 0.0)
+
+    val DAMAGE = IntRangeProperty(id = 30, name = "Atak fizyczny", propertyName = "dmg", default = 0..0, minimum = 0)
 
     val SIZE = IntProperty(id = 50, name = "Pojemnosc (tylko torby)", propertyName = "bag")
 
