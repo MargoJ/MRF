@@ -13,6 +13,7 @@ class NpcMapObjectData : MapObjectData<NpcMapObject>
         val MASK_CUSTOM_LEVEL = 1 shl 2
         val MASK_CUSTOM_GRAPHICS = 1 shl 3
         val MASK_GROUP = 1 shl 4
+        val MASK_SPAWN = 1 shl 5
     }
 
     override val objectId: Int = 3
@@ -28,6 +29,7 @@ class NpcMapObjectData : MapObjectData<NpcMapObject>
         mask = this.encodeIfNotNull(mask, MASK_CUSTOM_LEVEL, obj.level, { data.writeInt(it) })
         mask = this.encodeIfNotNull(mask, MASK_CUSTOM_GRAPHICS, obj.graphics, { data.writeUTF(it) })
         mask = this.encodeIfNotNull(mask, MASK_GROUP, obj.group, { data.writeInt(it) })
+        mask = this.encodeIfNotNull(mask, MASK_SPAWN, obj.spawnTime, { data.writeUTF(it) })
 
         output.writeUTF(obj.script)
         output.writeByte(mask)
@@ -58,6 +60,7 @@ class NpcMapObjectData : MapObjectData<NpcMapObject>
         mapObject.level = this.decodeNullable(mask, MASK_CUSTOM_LEVEL, { input.readInt() })
         mapObject.graphics = this.decodeNullable(mask, MASK_CUSTOM_GRAPHICS, { input.readUTF() })
         mapObject.group = this.decodeNullable(mask, MASK_GROUP, { input.readInt() })
+        mapObject.spawnTime = this.decodeNullable(mask, MASK_SPAWN, { input.readUTF() })
 
         return mapObject
     }
