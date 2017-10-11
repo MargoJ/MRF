@@ -15,6 +15,7 @@ import pl.margoj.mrf.map.objects.MapObjectData
 import pl.margoj.mrf.map.objects.gateway.GatewayObjectData
 import pl.margoj.mrf.map.objects.mapspawn.MapSpawnObjectData
 import pl.margoj.mrf.map.objects.npc.NpcMapObjectData
+import pl.margoj.mrf.map.objects.text.TextMapObjectData
 
 class MapData<T : SerializationData<*>>
 {
@@ -59,6 +60,7 @@ class MapData<T : SerializationData<*>>
             mapObjects.registerData(GatewayObjectData())
             mapObjects.registerData(MapSpawnObjectData())
             mapObjects.registerData(NpcMapObjectData())
+            mapObjects.registerData(TextMapObjectData())
 
             mapMetadata.registerData(MapPvPData())
             mapMetadata.registerData(WelcomeMessageData())
