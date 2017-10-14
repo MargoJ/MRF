@@ -23,7 +23,9 @@ object ItemProperties
     val HEALTH_FOR_STRENGTH = DoubleProperty(id = 26, name = "X życia za 1 punkt siły", propertyName = "hpbon", default = 0.0)
 
     val DAMAGE = IntRangeProperty(id = 30, name = "Atak fizyczny", propertyName = "dmg", default = 0..0, minimum = 0)
-    val ARMOR = IntProperty(id = 31, name = "Pancerz", propertyName = "ac", default = 0, minimum = 0)
+    val ARMOR = IntProperty(id = 32, name = "Pancerz", propertyName = "ac", default = 0, minimum = 0)
+    val BLOCK = IntProperty(id = 33, name = "Blok", propertyName = "blok", default = 0, minimum = 0)
+    val EVADE = IntProperty(id = 34, name = "Unik", propertyName = "evade", default = 0, minimum = 0)
 
     val SIZE = IntProperty(id = 50, name = "Pojemnosc (tylko torby)", propertyName = "bag")
 
