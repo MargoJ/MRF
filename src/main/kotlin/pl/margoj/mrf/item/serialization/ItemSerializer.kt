@@ -11,26 +11,39 @@ class ItemSerializer : MRFSerializer<MargoItem>()
     {
         out.writeUTF(obj.id)
 
-        val toWrite = hashMapOf<ItemProperty<*>, Any?>()
+        ItemSerializer.writeProperties(obj.properties, out, false)
+    }
 
-        for (property in ItemProperty.properties)
+    companion object
+    {
+        fun writeProperties(obj: Map<ItemProperty<*>, Any?>, out: DataOutputStream, ignoreAbsent: Boolean)
         {
-            if (obj[property] != property.default)
+            val toWrite = hashMapOf<ItemProperty<*>, Any?>()
+
+            for (property in ItemProperty.properties)
             {
-                toWrite.put(property, obj[property])
+                if(ignoreAbsent && !obj.containsKey(property))
+                {
+                    continue
+                }
+
+                if (obj[property] != property.default)
+                {
+                    toWrite.put(property, obj[property])
+                }
             }
-        }
 
-        out.writeShort(toWrite.size)
+            out.writeShort(toWrite.size)
 
-        for ((key, value) in toWrite)
-        {
-            out.writeShort(key.id)
+            for ((key, value) in toWrite)
+            {
+                out.writeShort(key.id)
 
-            @Suppress("UNCHECKED_CAST")
-            key as ItemProperty<Any?>
+                @Suppress("UNCHECKED_CAST")
+                key as ItemProperty<Any?>
 
-            key.serialize(out, value)
+                key.serialize(out, value)
+            }
         }
     }
 }
