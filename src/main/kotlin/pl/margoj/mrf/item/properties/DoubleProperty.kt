@@ -8,10 +8,11 @@ open class DoubleProperty(
         id: Int,
         name: String,
         propertyName: String,
-        val minimum: Double = 0.0,
         default: Double = 0.0
-) : ItemProperty<Double>(id, name = name, propertyName = propertyName, default = default)
+) : ItemProperty<Double>(id, name, propertyName, default)
 {
+    var minimum: Double = 0.0
+
     override fun serialize(out: DataOutputStream, value: Double)
     {
         out.writeDouble(value)

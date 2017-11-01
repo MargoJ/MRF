@@ -8,10 +8,11 @@ open class IntRangeProperty(
         id: Int,
         name: String,
         propertyName: String,
-        val minimum: Int = 0,
         default: IntRange = 0..0
-) : ItemProperty<IntRange>(id, name = name, propertyName = propertyName, default = default)
+) : ItemProperty<IntRange>(id, name, propertyName, default)
 {
+    var minimum: Int = 0
+
     override fun serialize(out: DataOutputStream, value: IntRange)
     {
         out.writeInt(value.first)

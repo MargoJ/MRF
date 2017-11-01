@@ -8,12 +8,12 @@ open class StringProperty(
         id: Int,
         name: String,
         propertyName: String? = null,
-        default: String = "",
-        showWhenRestricted: Boolean = false,
-        val long: Boolean = false,
-        val regexp: Regex? = null
-) : ItemProperty<String>(id = id, name = name, propertyName = propertyName, default = default, showWhenRestricted = showWhenRestricted)
+        default: String = ""
+) : ItemProperty<String>(id, name, propertyName, default)
 {
+    var long: Boolean = false
+    var regexp: Regex? = null
+
     override fun serialize(out: DataOutputStream, value: String)
     {
         out.writeUTF(value)

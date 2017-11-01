@@ -8,10 +8,11 @@ open class IntProperty(
         id: Int,
         name: String,
         propertyName: String,
-        val minimum: Int = 0,
         default: Int = 0
-) : ItemProperty<Int>(id, name = name, propertyName = propertyName, default = default)
+) : ItemProperty<Int>(id, name, propertyName, default)
 {
+    var minimum: Int = 0
+
     override fun serialize(out: DataOutputStream, value: Int)
     {
         out.writeInt(value)

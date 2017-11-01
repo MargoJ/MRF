@@ -7,8 +7,13 @@ import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.IOException
 
-class IconProperty(id: Int, name: String) : ItemProperty<MRFIcon?>(id = id, name = name, default = null, showWhenRestricted = true)
+class IconProperty(id: Int, name: String) : ItemProperty<MRFIcon?>(id, name, default = null)
 {
+    init
+    {
+        this.showWhenRestricted = true
+    }
+
     override fun serialize(out: DataOutputStream, value: MRFIcon?)
     {
         value!!

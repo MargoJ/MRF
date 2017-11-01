@@ -8,11 +8,11 @@ open class LongProperty(
         id: Int,
         name: String,
         propertyName: String? = null,
-        val minimum: Long = 0,
-        default: Long = 0,
-        showWhenRestricted: Boolean = false
-) : ItemProperty<Long>(id, name = name, propertyName = propertyName, default = default, showWhenRestricted = showWhenRestricted)
+        default: Long = 0
+) : ItemProperty<Long>(id, name, propertyName, default)
 {
+    var minimum: Long = 0
+
     override fun serialize(out: DataOutputStream, value: Long)
     {
         out.writeLong(value)
