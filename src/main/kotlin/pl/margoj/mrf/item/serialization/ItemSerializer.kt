@@ -11,23 +11,23 @@ class ItemSerializer : MRFSerializer<MargoItem>()
     {
         out.writeUTF(obj.id)
 
-        ItemSerializer.writeProperties(obj.properties, out)
+        ItemSerializer.writeProperties(obj.properties, out, false)
     }
 
     companion object
     {
-        fun writeProperties(obj: Map<ItemProperty<*>, Any?>, out: DataOutputStream)
+        fun writeProperties(obj: Map<ItemProperty<*>, Any?>, out: DataOutputStream, putDefaults: Boolean)
         {
             val toWrite = hashMapOf<ItemProperty<*>, Any?>()
 
             for (property in ItemProperty.properties)
             {
-                if(!obj.containsKey(property))
+                if (!obj.containsKey(property))
                 {
                     continue
                 }
 
-                if (obj[property] != property.default)
+                if ((putDefaults && obj.containsKey(property)) || obj[property] != property.default)
                 {
                     toWrite.put(property, obj[property])
                 }

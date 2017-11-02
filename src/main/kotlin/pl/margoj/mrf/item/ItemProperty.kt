@@ -41,6 +41,11 @@ object ItemProperties
     val LEVEL_REQUIREMENT = IntProperty(id = 80, name = "Wymagany poziom", propertyName = "lvl")
     val PROFESSION_REQUIREMENT = ProfessionRequirementProperty(id = 81, name = "Wymagana profesja: ", propertyName = "reqp")
 
+    // bounds
+    val SOUL_BOUND = BooleanProperty(id = 90, name  = "Związany z właścicielem", propertyName = "soulbound")
+    val PERM_BOUND = BooleanProperty(id = 91, name  = "Związany z właścicielem na stałe", propertyName = "permbound")
+    val BINDS = BooleanProperty(id = 92, name  = "Wiąże po założeniu", propertyName = "binds")
+
     // others
     val NO_DESCRIPTION = BooleanProperty(id = 31, name = "Niezidentyfikowany", propertyName = "nodesc").also { it.showWhenRestricted = true }
 }
