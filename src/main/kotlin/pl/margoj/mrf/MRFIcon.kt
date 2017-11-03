@@ -7,6 +7,12 @@ data class MRFIcon(
         val format: MRFIconFormat,
         val cachedImage: BufferedImage?
 )
+{
+    override fun toString(): String
+    {
+        return "MRFIcon(format=$format)"
+    }
+}
 
 enum class MRFIconFormat(val id: Int, val format: String, val extension: String)
 {

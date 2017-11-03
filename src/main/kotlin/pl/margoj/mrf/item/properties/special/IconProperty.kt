@@ -1,4 +1,4 @@
-package pl.margoj.mrf.item.properties
+package pl.margoj.mrf.item.properties.special
 
 import pl.margoj.mrf.MRFIcon
 import pl.margoj.mrf.MRFIconFormat
