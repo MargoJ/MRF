@@ -70,6 +70,8 @@ object ItemProperties
 
     val RUN_SCRIPT = StringProperty(id = 113, name = "Uruchom skrypt", propertyName = "").also { it.category = Category.USES; it.renderable = false }
 
+    val TELEPORT = TeleportProperty(id = 114, name="Teleportuj", propertyName = "teleport").also { it.category = Category.USES }
+
     // others
     val NO_DESCRIPTION = BooleanProperty(id = 31, name = "Niezidentyfikowany", propertyName = "nodesc").also { it.showWhenRestricted = true }
 }
