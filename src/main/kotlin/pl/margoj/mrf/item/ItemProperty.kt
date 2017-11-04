@@ -45,25 +45,24 @@ object ItemProperties
     val EVADE = IntProperty(id = 34, name = "Unik", propertyName = "evade", default = 0).also { it.category = Category.BATTLE_STATISTICS; it.minimum = 0 }
 
     // special
-    val SIZE = IntProperty(id = 50, name = "Pojemnosc (tylko torby)", propertyName = "bag").also { it.category = Category.SPECIAL }
+    val SIZE = IntProperty(id = 50, name = "Pojemnosc (tylko torby)", propertyName = "bag").also { it.category = Category.SPECIAL; it.showWhenRestricted = true }
 
     // loots
-    val LOOT = StringProperty(id = 70, name = "", propertyName = "loot").also { it.editable = false }
+    val LOOT = StringProperty(id = 70, name = "", propertyName = "loot").also { it.editable = false; it.showWhenRestricted = true }
 
     // requirements
-    val LEVEL_REQUIREMENT = IntProperty(id = 80, name = "Wymagany poziom", propertyName = "lvl").also { it.category = Category.REQUIREMENTS }
-    val PROFESSION_REQUIREMENT = ProfessionRequirementProperty(id = 81, name = "Wymagana profesja: ", propertyName = "reqp").also { it.category = Category.REQUIREMENTS }
+    val LEVEL_REQUIREMENT = IntProperty(id = 80, name = "Wymagany poziom", propertyName = "lvl").also { it.category = Category.REQUIREMENTS; it.showWhenRestricted = true }
+    val PROFESSION_REQUIREMENT = ProfessionRequirementProperty(id = 81, name = "Wymagana profesja: ", propertyName = "reqp").also { it.category = Category.REQUIREMENTS; it.showWhenRestricted = true }
 
     // bounds
-    val SOUL_BOUND = BooleanProperty(id = 90, name = "Związany z właścicielem", propertyName = "soulbound").also { it.category = Category.BOUNDS }
-    val PERM_BOUND = BooleanProperty(id = 91, name = "Związany z właścicielem na stałe", propertyName = "permbound").also { it.category = Category.BOUNDS }
-    val BINDS = BooleanProperty(id = 92, name = "Wiąże po założeniu", propertyName = "binds").also { it.category = Category.BOUNDS }
+    val SOUL_BOUND = BooleanProperty(id = 90, name = "Związany z właścicielem", propertyName = "soulbound").also { it.category = Category.BOUNDS; it.showWhenRestricted = true }
+    val PERM_BOUND = BooleanProperty(id = 91, name = "Związany z właścicielem na stałe", propertyName = "permbound").also { it.category = Category.BOUNDS; it.showWhenRestricted = true }
+    val BINDS = BooleanProperty(id = 92, name = "Wiąże po założeniu", propertyName = "binds").also { it.category = Category.BOUNDS; it.showWhenRestricted = true }
 
     // uses
-    val USES = BooleanProperty(id = 100, name = "Zużywa się", propertyName = "").also { it.category = Category.USES; it.renderable = false }
     val AMOUNT = IntProperty(id = 101, name = "Ilośc", propertyName = "amount").also { it.category = Category.USES }
     val MAX_AMOUNT = IntProperty(id = 102, name = "Max. Ilość", propertyName = "capacity").also { it.category = Category.USES }
-    val COOLDOWN = CooldownProperty(id = 103, name="Można używać co X min", propertyName = "timelimit").also { it.category = Category.USES }
+    val COOLDOWN = CooldownProperty(id = 103, name="Można używać co X min", propertyName = "timelimit").also { it.category = Category.USES; it.showWhenRestricted = true }
 
     val HEAL = IntProperty(id = 110, name = "Leczy", propertyName = "leczy").also { it.minimum = Int.MIN_VALUE; it.category = Category.USES }
     val FULL_HEAL = IntProperty(id = 111, name = "Pełne leczenie", propertyName = "fullheal").also { it.minimum = Int.MIN_VALUE; it.category = Category.USES }
