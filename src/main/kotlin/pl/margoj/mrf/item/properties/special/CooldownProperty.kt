@@ -24,5 +24,5 @@ open class CooldownProperty(
         return Cooldown(input.readInt(), input.readLong())
     }
 
-    data class Cooldown(var cooldown: Int, var nextUse: Long)
+    data class Cooldown(val cooldown: Int, val nextUse: Long)
 }
