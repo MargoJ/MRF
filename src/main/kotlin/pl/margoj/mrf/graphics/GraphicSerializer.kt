@@ -9,8 +9,10 @@ class GraphicSerializer : MRFSerializer<GraphicResource>()
     {
         out.writeUTF(obj.id)
         out.writeUTF(obj.name)
+        out.writeUTF(obj.fileName)
+        out.writeByte(obj.graphicCategory.id.toInt())
         out.writeByte(obj.icon.format.id)
-        out.writeShort(obj.icon.image.size)
+        out.writeInt(obj.icon.image.size)
         out.write(obj.icon.image)
     }
 }

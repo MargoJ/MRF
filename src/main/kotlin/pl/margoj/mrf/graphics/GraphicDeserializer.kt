@@ -12,8 +12,10 @@ class GraphicDeserializer : MRFDeserializer<GraphicResource>()
     {
         val id = input.readUTF()
         val name = input.readUTF()
+        val fileName = input.readUTF()
+        val category = GraphicResource.GraphicCategory.findById(input.readByte())!!
         val format = MRFIconFormat.getById(input.readByte().toInt())
-        val size = input.readShort().toInt()
+        val size = input.readInt()
         val buffer = ByteArray(size)
         val read = input.read(buffer)
 
@@ -22,6 +24,6 @@ class GraphicDeserializer : MRFDeserializer<GraphicResource>()
             throw IOException("icon loading failed, read = $read, size = $size")
         }
 
-        return GraphicResource(id, MRFIcon(buffer, format!!, null))
+        return GraphicResource(id, fileName, MRFIcon(buffer, format!!, null), category)
     }
 }

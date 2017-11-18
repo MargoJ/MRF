@@ -8,7 +8,7 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
     val properties = hashMapOf<ItemProperty<*>, Any?>()
 
     override val category: Category get() = Category.ITEMS
-    override val view: ResourceView get() = ResourceView(this.id, this.name, this.category, "$id.mji")
+    override val view: ResourceView get() = ResourceView(this.id, this.name, null, this.category, "$id.mji")
 
     override var name: String
         get() = this[ItemProperties.NAME]

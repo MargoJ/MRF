@@ -37,7 +37,7 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
 
     override val category: Category get() = Category.MAPS
 
-    override val view: ResourceView get() = ResourceView(this.id, this.name, this.category, "$id.mjm")
+    override val view: ResourceView get() = ResourceView(this.id, this.name, null, this.category, "$id.mjm")
 
     override var name: String
         get() = super.name

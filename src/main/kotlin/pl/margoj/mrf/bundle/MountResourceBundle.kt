@@ -51,6 +51,7 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
                 resources.add(ResourceView(
                         id = json["id"].asString,
                         name = json["name"].asString,
+                        meta = json["meta"]?.asJsonObject,
                         category = MargoResource.getCategoryById(categoryName)!!,
                         fileName = key
                 ))
@@ -77,6 +78,10 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
             val json = JsonObject()
             json.addProperty("id", view.id)
             json.addProperty("name", view.name)
+            if (view.meta != null)
+            {
+                json.add("meta", view.meta)
+            }
             categoryElement.asJsonObject.add(view.fileName, json)
         }
 
