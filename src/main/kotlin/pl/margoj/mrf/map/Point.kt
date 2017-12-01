@@ -26,4 +26,24 @@ data class Point(val x: Int, val y: Int)
 
         return out
     }
+
+    operator fun plus(point: Point): Point
+    {
+        return this.getRelative(point.x, point.y)
+    }
+
+    operator fun minus(point: Point): Point
+    {
+        return this.getRelative(-point.x, -point.y)
+    }
+
+    operator fun div(number: Int): Point
+    {
+        return Point(this.x / number, this.y / number)
+    }
+
+    operator fun times(number: Int): Point
+    {
+        return Point(this.x * number, this.y * number)
+    }
 }

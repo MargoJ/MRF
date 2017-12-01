@@ -1,5 +1,6 @@
 package pl.margoj.mrf.map
 
+import com.google.gson.JsonObject
 import org.apache.commons.lang3.Validate
 import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
@@ -12,6 +13,8 @@ import java.util.stream.Collectors
 
 class MargoMap(val version: Byte, id: String, name: String, width: Int, height: Int) : MargoResource(id, name), Iterable<Array<MapFragment>>
 {
+    var size: Int? = null
+
     lateinit var fragments: Array<Array<Array<MapFragment>>>
     lateinit var collisions: Array<BooleanArray>
     lateinit var water: Array<IntArray>
@@ -37,7 +40,19 @@ class MargoMap(val version: Byte, id: String, name: String, width: Int, height: 
 
     override val category: Category get() = Category.MAPS
 
-    override val view: ResourceView get() = ResourceView(this.id, this.name, null, this.category, "$id.mjm")
+    override val view: ResourceView get() = ResourceView(this.id, this.name, this.createMeta(), this.category, "$id.mjm")
+
+    private fun createMeta(): JsonObject
+    {
+        val meta = JsonObject()
+
+        if(size != null)
+        {
+            meta.addProperty("size", size)
+        }
+
+        return meta
+    }
 
     override var name: String
         get() = super.name

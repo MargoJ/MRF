@@ -28,7 +28,7 @@ abstract class MargoResource(id: String, open var name: String)
         MAPS("Mapy", "maps"),
         ITEMS("Przedmioty", "items"),
         TILESETS("Tilesety", "tilesets"),
-        NPC_SCRIPTS("Skrypty NPC", "npcscripts"),
+        SCRIPTS("Skrypty NPC", "scripts"),
         GRAPHIC("Grafika", "graphics");
     }
 

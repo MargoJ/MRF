@@ -10,6 +10,8 @@ interface MargoResourceBundle
 
     val remote: Boolean
 
+    var touched: Boolean
+
     fun getResource(category: MargoResource.Category, id: String): ResourceView?
 
     fun loadResource(view: ResourceView): InputStream?

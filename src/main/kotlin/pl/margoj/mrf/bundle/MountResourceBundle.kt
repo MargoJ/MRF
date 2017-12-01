@@ -12,7 +12,7 @@ import java.io.*
 
 abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
 {
-    var touched: Boolean = false
+    override var touched: Boolean = false
     private var resources_: MutableList<ResourceView>? = null
 
     init
