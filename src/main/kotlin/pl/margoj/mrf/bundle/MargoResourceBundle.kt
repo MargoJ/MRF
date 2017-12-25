@@ -2,6 +2,7 @@ package pl.margoj.mrf.bundle
 
 import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
+import pl.margoj.mrf.bundle.operation.BundleOperation
 import java.io.InputStream
 
 interface MargoResourceBundle
@@ -12,7 +13,11 @@ interface MargoResourceBundle
 
     var touched: Boolean
 
+    val bundleOperation: BundleOperation
+
     fun getResource(category: MargoResource.Category, id: String): ResourceView?
+
+    fun loadAll(collection: Collection<ResourceView>): Map<ResourceView, InputStream?>
 
     fun loadResource(view: ResourceView): InputStream?
 

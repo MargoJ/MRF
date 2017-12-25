@@ -1,5 +1,6 @@
 package pl.margoj.mrf.item
 
+import com.google.gson.JsonObject
 import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
 
@@ -8,7 +9,7 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
     val properties = hashMapOf<ItemProperty<*>, Any?>()
 
     override val category: Category get() = Category.ITEMS
-    override val view: ResourceView get() = ResourceView(this.id, this.name, null, this.category, "$id.mji")
+    override val view: ResourceView get() = ResourceView(this.id, this.name, this.createMeta(), this.category, "$id.mji")
 
     override var name: String
         get() = this[ItemProperties.NAME]
@@ -16,6 +17,13 @@ class MargoItem(id: String, name: String) : MargoResource(id, name)
         {
             this[ItemProperties.NAME] = value
         }
+
+    private fun createMeta(): JsonObject?
+    {
+        val json = JsonObject()
+        json.addProperty("cat", this.get(ItemProperties.CATEGORY).margoId)
+        return json
+    }
 
     init
     {

@@ -5,12 +5,8 @@ import pl.margoj.mrf.map.objects.MapObject
 
 data class NpcMapObject(
         override var position: Point,
-        var script: String? = null,
-        var graphics: String? = null,
-        var name: String? = null,
-        var level: Int? = null,
-        var group: Int? = null,
-        var spawnTime: String? = null
+        var id: String? = null,
+        var group: Byte = 0
 ) : MapObject<NpcMapObject>()
 {
     override val dataType: Class<NpcMapObjectData> = NpcMapObjectData::class.java

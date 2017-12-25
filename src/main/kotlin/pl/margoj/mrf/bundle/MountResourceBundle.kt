@@ -165,6 +165,18 @@ abstract class MountResourceBundle(val mount: File) : MargoResourceBundle
         this.touched = true
     }
 
+    override fun loadAll(collection: Collection<ResourceView>): Map<ResourceView, InputStream?>
+    {
+        val out = HashMap<ResourceView, InputStream?>(collection.size)
+
+        for (resourceView in collection)
+        {
+            out.put(resourceView, this.loadResource(resourceView))
+        }
+
+        return out
+    }
+
     override fun loadResource(view: ResourceView): InputStream?
     {
         try

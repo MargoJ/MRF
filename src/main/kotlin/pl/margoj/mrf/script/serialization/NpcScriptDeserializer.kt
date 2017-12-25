@@ -1,7 +1,7 @@
-package pl.margoj.mrf.npc.serialization
+package pl.margoj.mrf.script.serialization
 
 import org.apache.commons.io.IOUtils
-import pl.margoj.mrf.npc.NpcScript
+import pl.margoj.mrf.script.NpcScript
 import pl.margoj.mrf.serialization.MRFDeserializer
 import java.io.DataInputStream
 import java.nio.charset.StandardCharsets

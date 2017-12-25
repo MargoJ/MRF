@@ -1,4 +1,4 @@
-package pl.margoj.mrf.npc
+package pl.margoj.mrf.script
 
 import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView

@@ -6,17 +6,12 @@ import java.util.regex.Pattern
 
 abstract class MargoResource(id: String, open var name: String)
 {
-    var id: String = "notset"
+    var id: String = id
         set(value)
         {
             Validate.isTrue(ID_PATTERN.matcher(value).matches(), "ID format is invalid")
             field = value
         }
-
-    init
-    {
-        this.id = id
-    }
 
     abstract val category: Category
     abstract val view: ResourceView
@@ -28,8 +23,10 @@ abstract class MargoResource(id: String, open var name: String)
         MAPS("Mapy", "maps"),
         ITEMS("Przedmioty", "items"),
         TILESETS("Tilesety", "tilesets"),
+        NPC("NPC", "npcs"),
         SCRIPTS("Skrypty NPC", "scripts"),
-        GRAPHIC("Grafika", "graphics");
+        GRAPHIC("Grafika", "graphics"),
+        DATA("Dane", "data");
     }
 
     override fun equals(other: Any?): Boolean

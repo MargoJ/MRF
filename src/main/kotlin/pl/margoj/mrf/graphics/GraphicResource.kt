@@ -5,7 +5,7 @@ import pl.margoj.mrf.MRFIcon
 import pl.margoj.mrf.MargoResource
 import pl.margoj.mrf.ResourceView
 
-class GraphicResource(id: String, val fileName: String, val icon: MRFIcon, val graphicCategory: GraphicCategory) : MargoResource(id, fileName)
+class GraphicResource(id: String, val fileName: String, val icon: MRFIcon, val graphicCategory: GraphicCategory, var catalog: String? = null) : MargoResource(id, fileName)
 {
     override val category: Category get() = Category.GRAPHIC
 
@@ -15,13 +15,17 @@ class GraphicResource(id: String, val fileName: String, val icon: MRFIcon, val g
     {
         val out = JsonObject()
         out.addProperty("cat", this.graphicCategory.id)
+        if (this.catalog != null)
+        {
+            out.addProperty("catalog", this.catalog)
+        }
         return out
     }
 
     enum class GraphicCategory(val id: Byte, val displayName: String)
     {
-        ITEM(0, "Grafiki przedmiotów"),
-        NPC(1, "Grafiki NPCtów");
+        ITEM(0, "przedmioty"),
+        NPC(1, "npc");
 
         companion object
         {

@@ -3,11 +3,15 @@ package pl.margoj.mrf.bundle.local
 import org.apache.commons.lang3.SerializationException
 import pl.margoj.mrf.ResourceView
 import pl.margoj.mrf.bundle.MountResourceBundle
+import pl.margoj.mrf.bundle.operation.BundleOperation
+import pl.margoj.mrf.bundle.operation.DirectBundleOperation
 import java.io.*
 
 class MountedResourceBundle(mountPoint: File) : MountResourceBundle(mountPoint)
 {
     override val remote: Boolean = false
+
+    override val bundleOperation: BundleOperation = DirectBundleOperation(this)
 
     override fun saveBundle()
     {

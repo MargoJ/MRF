@@ -5,6 +5,8 @@ import org.apache.commons.lang3.SerializationException
 import pl.margoj.mrf.Paths
 import pl.margoj.mrf.ResourceView
 import pl.margoj.mrf.bundle.MountResourceBundle
+import pl.margoj.mrf.bundle.operation.BundleOperation
+import pl.margoj.mrf.bundle.operation.DirectBundleOperation
 import java.io.*
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -17,6 +19,8 @@ import java.util.zip.ZipOutputStream
 class MargoMRFResourceBundle(val mrfFile: File, mount: File) : MountResourceBundle(mount), Closeable
 {
     private var zip: ZipFile?
+
+    override val bundleOperation: BundleOperation = DirectBundleOperation(this)
 
     init
     {
